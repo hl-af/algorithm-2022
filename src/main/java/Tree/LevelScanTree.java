@@ -53,7 +53,7 @@ public class LevelScanTree {
 
 
     /**
-     * 自底向上遍历二叉树，返回每层的元素
+     * LeetCode 107 .自底向上遍历二叉树，返回每层的元素
      * @param root
      * @return
      */
@@ -75,7 +75,7 @@ public class LevelScanTree {
                     queue.add(right);
                 }
             }
-            result.add(0, level);
+            result.add(0, level);//这样的方式才能保证插入的是在最前面
         }
         return result;
     }
@@ -124,5 +124,40 @@ public class LevelScanTree {
     public void testLargestValues() {
         System.out.println(largestValues(TreeUtils.getTreeDemo()));
     }
+
+    /**
+     * LeetCode 199 (二叉树右视图)给定⼀个⼆叉树的根节点 root，想象⾃⼰站在它的右侧，按照从顶部到底部的顺序，
+     * 返回从右侧所能看到的节点值。
+     */
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (queue.size() > 0) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                TreeNode left = node.left, right = node.right;
+                if (left != null) {
+                    queue.add(left);
+                }
+                if (right != null) {
+                    queue.add(right);
+                }
+                if (i == size - 1) {
+                    result.add(node.num);
+                }
+            }
+        }
+        return result;
+    }
+
+
+    @Test
+    public void testRightSideView() {
+        System.out.println(rightSideView(TreeUtils.getTreeDemo()));
+    }
+
+
 
 }
