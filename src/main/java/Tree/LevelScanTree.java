@@ -158,6 +158,42 @@ public class LevelScanTree {
         System.out.println(rightSideView(TreeUtils.getTreeDemo()));
     }
 
+    /**
+     * offer 45二叉树最底层最左边元素
+     */
+
+    public int findBottomLeftValue(TreeNode root){
+        if (root == null){
+            return -1;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        int result = -1;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (i == 0) {
+                    result = node.num;
+                }
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+
+        }
+        return result;
+    }
+
+    @Test
+    public void testFindBottomLeftValue() {
+        int val = findBottomLeftValue(TreeUtils.getTreeDemo());
+        System.out.println(val);
+    }
+
 
 
 }

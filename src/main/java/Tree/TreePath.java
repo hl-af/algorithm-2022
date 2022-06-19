@@ -74,8 +74,43 @@ public class TreePath {
         System.out.println(hasPathSum(TreeUtils.getTreeDemo(), 1));
     }
 
-    //TODO 输出路径和为sum的所有路径 是LeetCode113
+    //LeetCode 113输出路径和为sum的所有路径 是LeetCode113
+    public List<List<Integer>> pathSum(TreeNode root,int targetSum) {
+        List<List<Integer>> res = new ArrayList<>();
+        doPathSum(root, new ArrayList<>(), res, targetSum);
+        return res;
 
+    }
 
+    public void doPathSum(TreeNode root, List<Integer> currentList, List<List<Integer>> res, int targetSum) {
+
+        if (root == null) {
+            return;
+        }
+        currentList = new ArrayList<>(currentList);
+        currentList.add(root.num);
+        if (root.left == null && root.right == null) {
+            int sum = sum(currentList);
+            if (sum == targetSum) {
+                res.add(currentList);
+            }
+        }
+        doPathSum(root.left, currentList, res, targetSum);
+        doPathSum(root.right, currentList, res, targetSum);
+    }
+
+    public int sum(List<Integer> currentList) {
+        int resutl = 0;
+        for (Integer num : currentList) {
+            resutl = resutl + num;
+        }
+        return resutl;
+    }
+
+    @Test
+    public void testPathSum() {
+        List<List<Integer>> res = pathSum(TreeUtils.getTreeDemo(), 7);
+        System.out.println();
+    }
 
 }

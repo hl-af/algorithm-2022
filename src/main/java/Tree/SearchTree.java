@@ -38,7 +38,8 @@ public class SearchTree {
     }
 
     /**
-     * LeetCode 98: 验证是否是二叉搜索树 - 遍历方法
+     * LeetCode 98: 验证是否是二叉搜索树 - 遍历方法(错误方法)
+     * 解决 [5,4,6,null,null,3,7]失效， 因为不符合所有的右子树都大于当前节点的结论
      * @param root
      * @return
      */
@@ -72,7 +73,7 @@ public class SearchTree {
      * @return
      */
 
-    public int minNum = Integer.MIN_VALUE;
+    public long minNum = Long.MIN_VALUE;
 
     @Test
     public void testIsValidBST() {
@@ -87,7 +88,7 @@ public class SearchTree {
 
         boolean leftFlag = isValidBST2(root.left);
 
-        if (root.num <= minNum) { //注意不能有等于情况
+        if (root.num > minNum) { //注意不能有等于情况
             minNum = root.num;
         }else {
             return false;
@@ -97,6 +98,10 @@ public class SearchTree {
 
         return leftFlag && rightFlag;
     }
+
+
+
+
 
     public boolean isValidBST3(TreeNode root) {
         Deque<TreeNode> stack = new LinkedList<>();
@@ -150,6 +155,10 @@ public class SearchTree {
         int[] nums = {-10, -3, 0, 5, 9};
         TreeNode root = sortedArrayToBST(nums);
         System.out.println();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Integer.MIN_VALUE);
     }
 
 
