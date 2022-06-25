@@ -2,6 +2,8 @@ package Search;
 
 import org.junit.Test;
 
+import javax.xml.bind.annotation.XmlID;
+
 public class HotQuestion {
 
     /**
@@ -103,10 +105,84 @@ public class HotQuestion {
         return nums[0];
     }
 
+
+    /**
+     *  LeetCode153 旋转数组找最小值
+     * @param nums
+     * @return
+     */
+    public int findMin2(int[] nums) {
+        int low = 0;
+        int high = nums.length - 1;
+        int mid = 0;
+        while (low < high) {
+            mid = low + ((high - low) >> 1);
+            if (nums[mid] < nums[high]) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return mid - 1;
+    }
+
     @Test
     public void testFindMin() {
-        int[] array = {4,5,6,7,0,1,4};
-        int result = findMin(array);
+//        int[] array = {4, 5, 6, 7, -1, 0, 1};
+        int[] array = {-1, 0, 1, 4, 5, 6, 7};
+        int result = findMin2(array);
+        System.out.println(result);
+    }
+
+    /**
+     * 剑指offer
+     * ⼀个⻓度为n-1的递增排序数组中的所有数字都是唯⼀的，并且每个数字都在范围0～n-1之内。在
+     * 范围0～n-1内的n个数字中有且只有⼀个数字不在该数组中
+     * @param nums
+     * @return
+     */
+    public int findLackNum(int[] nums) {
+        int low = 0;
+        int high = nums.length - 1;
+        int mid = 0;
+        while (low <= high) {
+            mid = low + ((high - low) >> 1);
+            if (nums[mid] == mid) {
+                low = mid + 1;
+            }else {
+                high = mid - 1;
+            }
+        }
+        return mid;
+    }
+
+    @Test
+    public void testFindLackNum() {
+        int[] array = {1,2, 3, 4};
+        int result = findLackNum(array);
+        System.out.println(result);
+    }
+
+    public int sqrt(int x) {
+        int low = 0;
+        int high = x;
+        int mid = 0;
+        while (low <= high) {
+            mid = low + ((high - low) >> 1);
+            if (x / mid > mid) {
+                low = mid + 1;
+            }else if(x / mid < mid){
+                high = mid - 1;
+            }else {
+                return mid;
+            }
+        }
+        return mid;
+    }
+
+    @Test
+    public void testSqrt() {
+        int result = sqrt(8);
         System.out.println(result);
     }
 }
