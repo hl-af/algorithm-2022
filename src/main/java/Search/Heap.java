@@ -1,5 +1,7 @@
 package Search;
 
+import ListNodeUtils.ListNode;
+import ListNodeUtils.ListUtils;
 import org.junit.Test;
 
 import java.util.Comparator;
