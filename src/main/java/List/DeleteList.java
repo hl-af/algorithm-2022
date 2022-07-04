@@ -63,4 +63,69 @@ public class DeleteList {
         ListNode head = removeNthFromEnd(ListUtils.arrayToList(a), 3);
         ListUtils.printList(head);
     }
+
+    /**
+     * LeetCode83 存在⼀个按升序排列的链表，给你这个链表的头节点 head ，请你删除所有重复的元素，使每个元素
+     * 只出现⼀次 。返回同样按升序排列的结果链表。
+     * 这种方法有点绕，答案方法更加简洁
+     * @param head
+     * @return
+     */
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode dummyHead = new ListNode(-1);
+        dummyHead.next = head;
+        ListNode pre = dummyHead;
+        ListNode cur = head;
+        while (cur != null) {
+            if (cur.val == pre.val) {
+                pre.next = cur.next;
+                cur = cur.next;
+            }
+            pre = pre.next;
+            cur = cur.next;
+        }
+        return head;
+    }
+
+    @Test
+    public void testDeleteDuplicates() {
+        int[] a = {1, 1, 2, 3, 3, 4, 5, 6, 7};
+        ListNode head = deleteDuplicates(ListUtils.arrayToList(a));
+        ListUtils.printList(head);
+    }
+
+    /**
+     * LeetCode82 删除重复元素，重复元素都删除
+     * @param head
+     * @return
+     */
+    public ListNode deleteDuplicatesIncludeTarget(ListNode head){
+        ListNode dummyHead = new ListNode(-1);
+        ListNode pre = dummyHead; //pre是永远跟随cur的前序节点
+        dummyHead.next = head;
+        ListNode cur = head;
+        while (cur.next != null) {
+            if (cur.val == cur.next.val) {
+                while (cur.next != null && cur.val == cur.next.val) {
+                    cur = cur.next;
+                }
+                pre.next = cur.next;
+            }else {
+                cur = cur.next;
+                pre = pre.next;
+            }
+        }
+        return head;
+    }
+
+    @Test
+    public void testDeleteDuplicatesIncludeTarget() {
+        int[] a = {1, 2, 3, 4, 5, 5, 5, 5, 5};
+        ListNode head = deleteDuplicatesIncludeTarget(ListUtils.arrayToList(a));
+        ListUtils.printList(head);
+    }
+
 }
