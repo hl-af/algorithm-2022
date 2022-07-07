@@ -4,6 +4,8 @@ import ListNodeUtils.ListNode;
 import ListNodeUtils.ListUtils;
 import org.junit.Test;
 
+import java.lang.reflect.GenericDeclaration;
+
 public class ReverseList {
 
 
@@ -158,6 +160,42 @@ public class ReverseList {
         int[] a = {1, 2, 3, 4, 5, 6, 7, 8};
 //        ListNode head = reverseKGroup(ListUtils.arrayToList(a), 3);
         ListNode head = reverseKGroupAnswer(ListUtils.arrayToList(a), 3);
+        ListUtils.printList(head);
+    }
+
+
+    /**
+     * 两两交换节点（套用K个节点反转）
+     * @param head
+     * @return
+     */
+    public ListNode swapPairs(ListNode head) {
+        ListNode dummyHead = new ListNode(-1);
+        dummyHead.next = head;
+        ListNode pre = dummyHead;
+        ListNode end = dummyHead;
+        while (end != null) {
+            ListNode start = pre.next;
+            for (int i = 0; i < 2 && end != null; i++) {
+                end = end.next;
+            }
+            if (end == null) {
+                break;
+            }
+            ListNode next = end.next;
+            end.next = null;
+            pre.next = ListUtils.reverseList(start);
+            start.next = next;
+            pre = start;
+            end = pre; // 这个条件易忽略
+        }
+        return dummyHead.next;
+    }
+
+    @Test
+    public void testSwapPairs() {
+        int[] a = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        ListNode head = swapPairs(ListUtils.arrayToList(a));
         ListUtils.printList(head);
     }
 
