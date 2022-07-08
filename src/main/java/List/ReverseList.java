@@ -5,6 +5,7 @@ import ListNodeUtils.ListUtils;
 import org.junit.Test;
 
 import java.lang.reflect.GenericDeclaration;
+import java.util.Stack;
 
 public class ReverseList {
 
@@ -199,5 +200,130 @@ public class ReverseList {
         ListUtils.printList(head);
     }
 
+    /**
+     * 高位加一
+     * 反转列表法
+     * @param head
+     * @return
+     */
+    public ListNode plusOne(ListNode head) {
+        ListNode newHead = ListUtils.reverseList(head);
+        ListNode p = newHead;
+        Boolean flag = true;
+        while (p != null) {
+            if (flag) { //有进位
+                if ((p.val + 1) == 10) {
+                    p.val = 0;
+                    flag = true;
+                }else {
+                    p.val = p.val + 1;
+                    flag = false;
+                }
+            }else { // 无进位
+                p.val = p.val + 1;
+                flag = false;
+            }
+            if (!flag) {
+                break;
+            }else {
+                p = p.next;
+            }
+        }
+        head = ListUtils.reverseList(newHead);
+        return head;
+    }
+
+    /**
+     * 高位加一
+     * 使用栈解决问题
+     * @param head
+     * @return
+     */
+    public ListNode plusOne2(ListNode head) {
+        Stack<ListNode> stack = new Stack<>();
+        ListNode p = head;
+        while (p != null) {
+            stack.push(p);
+            p = p.next;
+        }
+        Boolean flag = true;
+        while (!stack.isEmpty()) {
+            p = stack.pop();
+            if (!flag) {
+                break;
+            }
+            if (p.val + 1 == 10) {
+                flag = true;
+                p.val = 0;
+            }else {
+                p.val = p.val + 1;
+                flag = false;
+            }
+        }
+        return head;
+    }
+
+    @Test
+    public void testPlusOne() {
+        int[] a = {1, 2, 9};
+        ListNode head = ListUtils.arrayToList(a);
+        head = plusOne2(head);
+        ListUtils.printList(head);
+    }
+
+    /**
+     * LeetCode445题，给你两个 ⾮空 链表来代表两个⾮负整数。数字最⾼位位于链表开始位置。它们的每个节点只存
+     * 储⼀位数字。将这两数相加会返回⼀个新的链表。你可以假设除了数字 0 之外，这两个数字都不会以零开头。
+     * @param head1
+     * @param head2
+     * @return
+     */
+    public ListNode addInList (ListNode head1, ListNode head2) {
+        Stack<ListNode> stack1 = new Stack<>();
+        Stack<ListNode> stack2 = new Stack<>();
+        ListNode p = head1;
+        while (p != null) {
+            stack1.push(p);
+            p = p.next;
+        }
+
+        p = head2;
+        while (p != null) {
+            stack2.push(p);
+            p = p.next;
+        }
+
+        ListNode result = new ListNode(-1);
+        p = result;
+        boolean flag = false;
+        while (!stack1.isEmpty() || !stack2.isEmpty()) {
+            p.next = new ListNode(0);
+            if (flag) {
+                p.next.val = p.next.val + 1;
+            }
+            if (!stack1.isEmpty()) {
+                p.next.val = p.next.val + stack1.pop().val;
+            }
+            if (!stack2.isEmpty()) {
+                p.next.val = p.next.val + stack2.pop().val;
+            }
+            if (p.next.val >= 10) {
+                p.next.val = p.next.val - 10;
+                flag = true;
+            }else {
+                flag = false;
+            }
+            p = p.next;
+        }
+        return ListUtils.reverseList(result.next);
+    }
+
+    @Test
+    public void testAddInList() {
+        int[] a1 = {1, 6, 4};
+        int[] a2 = {4, 5, 6};
+        ListNode result = addInList(ListUtils.arrayToList(a1), ListUtils.arrayToList(a2));
+        ListUtils.printList(result);
+    }
 
 }
