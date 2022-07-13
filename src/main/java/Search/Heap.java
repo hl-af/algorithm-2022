@@ -19,7 +19,8 @@ public class Heap {
         if (k <= 0 || k > nums.length) {
             return -1;
         }
-        PriorityQueue<Integer> minHeap = new PriorityQueue<>(k, (a, b) -> a - b);
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>(k, (a, b) -> a - b);//小顶堆
+        //PriorityQueue<Integer> minHeap = new PriorityQueue<>(k, (a, b) -> b - a);//大顶堆
         for (int i = 0; i < k; i++) {
             minHeap.add(nums[i]);
         }
@@ -36,7 +37,7 @@ public class Heap {
     @Test
     public void testFindKthLargest() {
         int[] nums = {3, 2, 3, 1, 2, 4, 5, 5, 6};
-        int result = findKthLargest(nums, 0);
+        int result = findKthLargest(nums, 3);
         System.out.println(result);
     }
 
