@@ -62,12 +62,12 @@ public class TwoPointer {
 
     /**
      * Leetcode61 旋转列表
-     * 可能存在问题，在leetcode待验证
+     * 可能存在问题，在leetcode待验证 -> 如果 k大于列表长度情况没有考虑到
      * @param head
      * @param k
      * @return
      */
-    public ListNode rotateRight(ListNode head, int k) {
+    public ListNode rotateRightMe(ListNode head, int k) {
 
         if (head == null || k < 0) {
             return new ListNode();
@@ -87,9 +87,59 @@ public class TwoPointer {
         return head;
     }
 
+    /**
+     * Leetcode61 旋转列表
+     * 使用反转法计算
+     * @param head
+     * @param k
+     * @return
+     */
+    public ListNode rotateRight(ListNode head, int k) {
+        if (head == null) {
+            return null;
+        }
+        ListNode temp = head;
+        int length = 0;
+        while (temp != null) {
+            temp = temp.next;
+            length++;
+        }
+        k = k % length;
+        head = reverseList(head);
+        ListNode node1 = head;
+        ListNode node2 = null;
+        k = k - 1;
+        while (k-- > 0) {
+            node1 = node1.next;
+        }
+        node2 = node1.next;
+        node1.next = null;
+        temp = head;
+        head = reverseList(head);
+        node2 = reverseList(node2);
+        temp.next = node2;
+        return head;
+    }
+
+    public ListNode reverseList(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode pre = null;
+        ListNode cur = head;
+        while (cur != null) {
+            ListNode next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
+    }
+
     @Test
     public void testRotateRight() {
         int[] a = {1,2,3,4,5,6,7,8};
+//        ListUtils.printList(rotateRightMe(ListUtils.arrayToList(a), 2));
         ListUtils.printList(rotateRight(ListUtils.arrayToList(a), 2));
     }
 
