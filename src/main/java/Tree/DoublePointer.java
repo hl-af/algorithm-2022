@@ -31,9 +31,20 @@ public class DoublePointer {
         return leftFlag & rightFlag;
     }
 
+    public boolean isSameTreeMe(TreeNode p, TreeNode q) {
+        if (p == null && q == null) {
+            return true;
+        }
+        if (p == null || q== null) {
+            return true;
+        }
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
+
     @Test
     public void testIsSameTree() {
-        System.out.println(isSameTree(TreeUtils.getTreeDemo(), TreeUtils.getTreeDemo2()));
+//        System.out.println(isSameTree(TreeUtils.getTreeDemo(), TreeUtils.getTreeDemo2()));
+        System.out.println(isSameTreeMe(TreeUtils.getTreeDemo(), TreeUtils.getTreeDemo2()));
     }
 
     /**
@@ -72,6 +83,33 @@ public class DoublePointer {
     public void testIsSymmetric() {
         System.out.println(isSymmetric(TreeUtils.getTreeDemo2()));
     }
+
+    /**
+     * 判断两个二叉树是否是对称二叉树
+     * @param p
+     * @param q
+     * @return
+     */
+    public Boolean isSymmetricTree(TreeNode p, TreeNode q) {
+        if (p == null && q == null) {
+            return true;
+        }
+        if (p == null || q == null) {
+            return false;
+        }
+        if (p.num != q.num) {
+            return false;
+        }
+        return isSymmetricTree(p.left, q.right) && isSymmetricTree(p.right, q.left);
+    }
+
+    @Test
+    public void testIsSymmetricTree() {
+//        System.out.println(isSymmetricTree(TreeUtils.buildBinaryTree(), TreeUtils.buildBinaryTree2()));
+        System.out.println(isSymmetricTree(TreeUtils.buildBinaryTree(), TreeUtils.getTreeDemo2()));
+    }
+
+
 
 
     public TreeNode mergeTree(TreeNode p, TreeNode q) {

@@ -51,6 +51,32 @@ public class TreeUtils {
         root.right.right = new TreeNode(3);
         return root;
     }
+    /**
+     * 方法1：比较粗糙的创建二叉树关系
+     */
+    public static TreeNode buildBinaryTree() {
+        TreeNode node = new TreeNode(3);
+        node.left = new TreeNode(9);
+        node.right = new TreeNode(20);
+        node.right.right = new TreeNode(7);
+        node.right.left = new TreeNode(15);
+        return node;
+    }
+
+    /**
+     * 与1对称的新二叉树
+     *
+     * @return
+     */
+    public static TreeNode buildBinaryTree2() {
+        TreeNode node = new TreeNode(3);
+        node.left = new TreeNode(20);
+        node.right = new TreeNode(9);
+        node.left.right = new TreeNode(15);
+        node.left.left = new TreeNode(7);
+        return node;
+
+    }
 
     public static void printTree(List<Integer> res) {
         res.stream().forEach(num -> System.out.print(num + ","));
