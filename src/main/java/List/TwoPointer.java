@@ -95,41 +95,42 @@ public class TwoPointer {
 
     /**
      * LeetCode141和142 判断列表是否有环-快慢指针法
-     * 快慢指针方法，相遇了三次
-     * 自己的实现，比较复杂，答案的方法会更好
+     * 快慢指针方法，相遇了三次,自己实现的
      * @param head
      * @return
      */
-    public ListNode hasCycle(ListNode head) {
-        if (head == null) {
-            return new ListNode();
-        }
+    public ListNode detectCycle(ListNode head) {
+        // 快慢指针判断是否有环
         ListNode slow = head;
-        ListNode fast = head.next.next;
-        while (slow != fast && fast.next != null) {
-            fast = fast.next.next;
+        ListNode fast = head.next;
+        while(fast != null && fast.next != null){
+            if(fast == null || fast.next == null){
+                return null;
+            }
+            if(slow == fast){
+                break;
+            }
             slow = slow.next;
+            fast = fast.next.next;
         }
-        if (fast.next != null) { //有环
-            int dist = 0;
+        // 定位环的长度
+        fast = slow.next; // 不设置为slow的下一个会导致进入不了下面的循环
+        int length = 1; //  已经拉开了差距，所以length从1开始累加
+        while(fast != slow){
+            length++;
             fast = fast.next;
-            while (fast != slow) {
-                fast = fast.next;
-                dist++;
-            }
-            slow = head;
-            fast = head;
-            for (int i = 0; i < dist + 1; i++) { //需要先走一格，不然slow和fast永远遇不到
-                fast = fast.next;
-            }
-            while (fast != slow) {
-                slow = slow.next;
-                fast = fast.next;
-            }
-            return slow;
-        }else { //无环
-            return null;
         }
+        // 找到环的入口
+        slow = head;
+        fast = head;
+        while(length-->0){
+            fast = fast.next;
+        }
+        while(slow != fast){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow;
     }
 
     @Test
@@ -149,7 +150,8 @@ public class TwoPointer {
             p = p.next;
         }
         lastNode.next = secondNode;
-        System.out.println(hasCycle(head).val);
+//        System.out.println(hasCycle(head).val);
+        System.out.println(detectCycle(head).val);
     }
 
 }
