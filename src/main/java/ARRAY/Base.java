@@ -3,6 +3,7 @@ package ARRAY;
 import org.junit.Test;
 
 import javax.swing.plaf.PanelUI;
+import java.util.Arrays;
 
 /**
  * 基础数组题目
@@ -41,6 +42,33 @@ public class Base {
         }
         arr[index] = element;
         printArray(arr);
+    }
+
+    /**
+     * 查找数组，给定一个递增序列，如果比目标值比当前位置大，就停下来，插入进去
+     * 从后往前实现
+     * @param arr
+     * @param size
+     * @param element
+     */
+    public void addLargeElement2(int[] arr, int size, int element) {
+        for (int i = size - 1; i >= 0; i--) {
+            if (arr[i] > element) {
+                arr[i + 1] = arr[i];
+            }else {
+                arr[i+1] = element;
+                return;
+            }
+        }
+        arr[0] = element;
+    }
+
+    @Test
+    public void testAddLargeElement2() {
+        int[] nums = {1, 23, 45, 56, 0, 0, 0, 0};
+        addLargeElement2(nums, 4, -1);
+        System.out.println(Arrays.toString(nums));
+
     }
 
     /**

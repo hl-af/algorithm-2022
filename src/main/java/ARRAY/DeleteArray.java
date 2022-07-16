@@ -8,7 +8,8 @@ import java.util.Arrays;
 public class DeleteArray {
 
     /**
-     * 原地移除数组中为val的元素，数组无序，不用管新数组长度后面的元素
+     * LeetCode27 原地移除数组中为val的元素，数组无序，不用管新数组长度后面的元素
+     * 优化点：重复元素
      * @param arr
      * @param val
      * @return

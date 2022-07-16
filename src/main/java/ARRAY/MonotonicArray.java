@@ -43,6 +43,7 @@ public class MonotonicArray {
 
     /**
      * 合并两个有序数组
+     * 从后往前遍历
      * @param arr1 数组1 ， 大小 m + n
      * @param m 元素个数
      * @param arr2 数组2

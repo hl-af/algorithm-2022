@@ -31,9 +31,37 @@ public class LevelScanTree {
         return resNodes;
     }
 
+    public List<TreeNode> levelScanTree(TreeNode treeNode){
+        if (treeNode == null) {
+            return new ArrayList<>();
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        List<TreeNode> result = new ArrayList<>();
+        queue.add(treeNode);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode cur = queue.poll();
+                result.add(cur);
+                TreeNode left = cur.left;
+                TreeNode right = cur.right;
+                if (left != null) {
+                    queue.add(left);
+                }
+                if (right != null) {
+                    queue.add(right);
+                }
+            }
+        }
+        return result;
+    }
+
+
+
     @Test
     public void testSimpleLevelOrder() {
-        List<TreeNode> levelList = simpleLevelOrder(TreeUtils.getTreeDemo());
+//        List<TreeNode> levelList = simpleLevelOrder(TreeUtils.getTreeDemo());
+        List<TreeNode> levelList = levelScanTree(TreeUtils.getTreeDemo());
         if (Objects.nonNull(levelList)) {
             levelList.stream().forEach( node ->System.out.print(node.num+","));
         }

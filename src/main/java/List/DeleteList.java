@@ -4,6 +4,7 @@ import ListNodeUtils.ListNode;
 import ListNodeUtils.ListUtils;
 import org.junit.Test;
 
+
 public class DeleteList {
 
     /**
