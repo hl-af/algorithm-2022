@@ -187,6 +187,40 @@ public class LevelScanTree {
     }
 
     /**
+     * 自拟题目 (二叉树右视图)给定⼀个⼆叉树的根节点 root，想象⾃⼰站在它的左侧，按照从顶部到底部的顺序，
+     * 返回从左侧所能看到的节点值。
+     */
+    public List<Integer> leftSideView(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+        List<Integer> result = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (queue.size() > 0) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                TreeNode left = node.left, right = node.right;
+                if (left != null) {
+                    queue.add(left);
+                }
+                if (right != null) {
+                    queue.add(right);
+                }
+                if (i == 0) {
+                    result.add(node.num);
+                }
+            }
+        }
+        return result;
+    }
+
+    @Test
+    public void testLeftSideView() {
+        System.out.println(leftSideView(TreeUtils.getTreeDemo()));
+    }
+    /**
      * offer 45二叉树最底层最左边元素
      */
 
