@@ -11,26 +11,51 @@ import java.util.Arrays;
 public class MonotonicArray {
 
     /**
-     * 判断一个数组是否是单调递增或者递减的
+     *  LeetCode 896 判断一个数组是否是单调递增或者递减的
      * 使用两个变量来标记是否是单调的
+     * 自己实现，方法有些笨重，答案思路简洁
      * @return
      */
-    public Boolean isMonotonicArray(int[] arr) {
+    public boolean isMonotonic(int[] nums) {
         boolean incr = false;
         boolean desc = false;
-        for (int i = 0; i < arr.length - 1; i++) {
-            if (arr[i] >= arr[i + 1]) {
+        for(int i = 0;i < nums.length - 1;i++){
+            if(nums[i] < nums[i+1]){
+                incr = true;
+            }
+            if(nums[i] > nums[i+1]){
                 desc = true;
-            }else {
+            }
+        }
+        if(incr && desc){
+            return false;
+        }
+        if(incr || desc){
+            return true;
+        }
+        return true;
+    }
+
+    /**
+     *  LeetCode 896 判断一个数组是否是单调递增或者递减的
+     * 使用两个变量来标记是否是单调的
+     * 标准答案实现法
+     * @return
+     */
+    public boolean isMonotonicStandard(int[] nums) {
+        boolean incr = true;
+        boolean desc = true;
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] < nums[i + 1]) {
+                desc = false;
+            }
+            if (nums[i] > nums[i + 1]) {
                 incr = true;
             }
         }
-        if (desc == true && incr == true) {
-            return false;
-        } else {
-            return true;
-        }
+        return incr || desc;
     }
+
 
     /**
      * 测试单调数组
@@ -38,7 +63,8 @@ public class MonotonicArray {
     @Test
     public void testArray() {
         int[] arr = {3,1};
-        System.out.println(isMonotonicArray(arr));
+//        System.out.println(isMonotonic(arr));
+        System.out.println(isMonotonicStandard(arr));
     }
 
     /**
