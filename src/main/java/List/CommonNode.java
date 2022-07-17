@@ -10,7 +10,13 @@ import java.util.List;
 import java.util.Stack;
 
 public class CommonNode {
-
+    /**
+     * 剑指offer 寻找两个字符串的公共节点
+     * 使用栈的方法来解决问题
+     * @param pHead1
+     * @param pHead2
+     * @return
+     */
     public ListNode findFirstCommonNodeByMap(ListNode pHead1, ListNode pHead2) {
         Stack<ListNode> stack1 = new Stack<>();
         Stack<ListNode> stack2 = new Stack<>();
@@ -48,7 +54,51 @@ public class CommonNode {
         ListNode p3 = ListUtils.arrayToList(a3);
         p1 = ListUtils.conjTwoList(p1, p3);
         p2 = ListUtils.conjTwoList(p2, p3);
-        ListNode node = findFirstCommonNodeByMap(p1, p2);
+//        ListNode node = findFirstCommonNodeByMap(p1, p2);
+        ListNode node = findFirstCommonNode(p1, p2);
         System.out.println(node.val);
+    }
+
+    /**
+     * 剑指offer 52 使用差和指针解决这个问题
+     * @param pHead1
+     * @param pHead2
+     * @return
+     */
+    public ListNode findFirstCommonNode(ListNode pHead1, ListNode pHead2) {
+        ListNode p1 = pHead1;
+        ListNode p2 = pHead2;
+        int length1 = 0;
+        int length2 = 0;
+        while (p1 != null || p2 != null) {
+            if (p1 == null && p2 != null) {
+                length2++;
+                p2 = p2.next;
+            } else if (p1 != null && p2 == null) {
+                length1++;
+                p1 = p1.next;
+            }
+            p2 = p2.next;
+            p1 = p1.next;
+        }
+        p1 = pHead1;
+        p2 = pHead2;
+        if (length1 > length2) {
+            int tempLength = length1;
+            while (tempLength-- > 0) {
+                p1 = p1.next;
+            }
+        }else {
+            int tempLength = length2;
+            while (tempLength-- > 0) {
+                p2 = p2.next;
+            }
+        }
+
+        while (p1 != p2) {
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+        return p1;
     }
 }
