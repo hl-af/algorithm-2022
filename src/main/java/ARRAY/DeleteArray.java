@@ -83,4 +83,30 @@ public class DeleteArray {
 //        System.out.println(removeElement(arr, 2));
         System.out.println(removeElementOppositePoint(arr, 2));
     }
+
+    /**
+     * Leetcode 80. 删除有序数组中的重复项 II
+     * 重复元素保留两个
+     * 根据答案提示自己做出来的：还是思考slow存储的是已经有效的区域，根据有效区域来判断fast的是否成立
+     * @param nums
+     * @return
+     */
+    public int removeThreeDuplicates(int[] nums) {
+        int slow = 2;
+        int fast = 3;
+        for (; fast < nums.length; fast++) {
+            if (nums[slow - 1] != nums[fast]) {
+                slow++;
+                nums[slow] = nums[fast];
+            }
+        }
+        System.out.println(Arrays.toString(nums));
+        return slow;
+    }
+
+    @Test
+    public void  testRemoveThreeDuplicates() {
+        int[] a = {1, 3, 3, 3, 5, 5, 7, 7, 7, 9};
+        System.out.println(removeThreeDuplicates(a));
+    }
 }
