@@ -106,6 +106,29 @@ public class DeleteList {
         return head;
     }
 
+    /**
+     * LeetCode83 经过leetcode验证版
+     * @param head
+     * @return
+     */
+    public ListNode deleteDuplicates2(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while (fast != null) {
+            if (slow.val == fast.val) {
+                slow.next = fast.next;
+                fast = fast.next;
+            }else {  //用else避免fast移动后可能是null，产生空指针
+                slow = slow.next;
+                fast = fast.next;
+            }
+        }
+        return head;
+    }
+
     @Test
     public void testDeleteDuplicates() {
         int[] a = {1, 1, 2, 3, 3, 4, 5, 6, 7};
