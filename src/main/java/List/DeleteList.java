@@ -160,10 +160,57 @@ public class DeleteList {
         return head;
     }
 
+    /**
+     * 这种方法还是会有重复元素，无法通过所有的测试用例
+     * @param head
+     * @return
+     */
+    public ListNode deleteDuplicatesIncludeTarget2(ListNode head){
+        ListNode dummpHead = new ListNode(-1);
+        dummpHead.next = head;
+        ListNode slow = dummpHead;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            if (fast.val == fast.next.val) {
+                slow.next = fast.next.next;
+                fast = slow.next;
+            }else {
+                slow = slow.next;
+                fast = fast.next;
+            }
+        }
+        return dummpHead.next;
+    }
+
+    /**
+     * 连续删除:失败case：[1,2,3,3,4,4,5]
+     * @param head
+     * @return
+     */
+    public ListNode deleteDuplicatesIncludeTarget3(ListNode head){
+        ListNode dummyHead = new ListNode(-1);
+        dummyHead.next = head;
+        ListNode slow = dummyHead;
+        ListNode fast = dummyHead.next;
+        while (fast != null && fast.next != null) {
+            if (fast.val == fast.next.val) {
+                while (fast != null && fast.next != null && fast.val == fast.next.val) {
+                    fast = fast.next;
+                }
+                slow.next = fast.next;
+            }else {
+                fast = fast.next;
+                slow = slow.next;
+            }
+        }
+        return dummyHead.next;
+    }
+
     @Test
     public void testDeleteDuplicatesIncludeTarget() {
-        int[] a = {1, 2, 3, 4, 5, 5, 5, 5, 5};
-        ListNode head = deleteDuplicatesIncludeTarget(ListUtils.arrayToList(a));
+//        int[] a = {1, 2, 3, 4, 5, 5, 5, 5, 5};
+        int[] a = {1, 2, 3, 3, 4, 4, 5};
+        ListNode head = deleteDuplicatesIncludeTarget3(ListUtils.arrayToList(a));
         ListUtils.printList(head);
     }
 

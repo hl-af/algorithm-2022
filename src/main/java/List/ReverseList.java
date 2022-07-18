@@ -114,6 +114,33 @@ public class ReverseList {
         return dymmyHead.next;
     }
 
+    /**
+     * LeetCode92 经过leetcode检验
+     * @param head
+     * @param left
+     * @param right
+     * @return
+     */
+    public ListNode reverseBetween2(ListNode head, int left, int right) {
+        ListNode dummyHead = new ListNode(-1); //因为left表示第几个元素，不是下标，所以让指针多移动一个位置
+        dummyHead.next = head;
+        ListNode low = dummyHead;
+        ListNode high = dummyHead;
+        ListNode preLow = low;
+        while(left-->0){
+            preLow = low;
+            low = low.next;
+        }
+        while(right-->0){
+            high = high.next;
+        }
+        ListNode next = high.next;
+        high.next = null;
+        ListNode temp = reverseList(low);
+        preLow.next = temp;
+        low.next = next;
+        return dummyHead.next;
+    }
     @Test
     public void testReverseBetween() {
         int[] a = {1, 2, 3, 4, 5, 6, 7, 8};
