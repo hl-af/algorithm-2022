@@ -32,10 +32,25 @@ public class DeleteList {
         return dummyHead.next;
     }
 
+
+    public ListNode removeElements2(ListNode head, int val) {
+        ListNode dummyHead = new ListNode(-1);
+        dummyHead.next = head;
+        ListNode p = dummyHead;
+        while ( p.next != null) { // 这个情况如果尾节点是val，需要改为 p != null && p.next != null ，否则就会报NPE，因为 45 行 p = p.next写在了最后
+            if (p.next.val == val) {
+                ListNode next = p.next.next;
+                p.next = next;
+            }
+            p = p.next;
+        }
+        return dummyHead.next;
+    }
+
     @Test
     public void testRemoveElements() {
-        int[] a = {1, 2, 3, 4, 5, 6, 7};
-        ListNode head = removeElements(ListUtils.arrayToList(a), 7);
+        int[] a = {1,2,6,3,4,5,6};
+        ListNode head = removeElements2(ListUtils.arrayToList(a), 6);
         ListUtils.printList(head);
     }
 
