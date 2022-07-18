@@ -8,7 +8,8 @@ import java.util.Arrays;
 public class DeleteArray {
 
     /**
-     * LeetCode26 删除有序数组的重复项
+     * LeetCode26 删除有序数组的重复项(保留一个重复项)
+     * 进阶题
      * @param nums
      * @return
      */
@@ -32,9 +33,8 @@ public class DeleteArray {
     }
 
     /**
-     * LeetCode27 原地移除数组中为val的元素，数组无序，不用管新数组长度后面的元素
+     * LeetCode27 原地移除数组中为val的元素，数组无序，不用管新数组长度后面的元素(保留零个重复项)
      * 快慢指针
-     * 这个方法不太好理解和记住，还是用对撞指针来做吧
      * @param arr
      * @param val
      * @return
@@ -85,7 +85,7 @@ public class DeleteArray {
     }
 
     /**
-     * Leetcode 80. 删除有序数组中的重复项 II
+     * Leetcode 80. 删除有序数组中的重复项 II（保留两个重复项）
      * 重复元素保留两个
      * 根据答案提示自己做出来的：还是思考slow存储的是已经有效的区域，根据有效区域来判断fast的是否成立
      * @param nums
@@ -95,7 +95,7 @@ public class DeleteArray {
         int slow = 2;
         int fast = 3;
         for (; fast < nums.length; fast++) {
-            if (nums[slow - 1] != nums[fast]) {
+            if (nums[slow - 1] != nums[fast]) { //和leetcode 的差别仅在 96，97，99行，思路是确保slow指针的有效区间内的是符合条件的
                 slow++;
                 nums[slow] = nums[fast];
             }

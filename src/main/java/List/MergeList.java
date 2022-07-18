@@ -34,14 +34,53 @@ public class MergeList {
         return head.next;
     }
 
+    public ListNode mergeTwoLists2(ListNode list1, ListNode list2) {
+        ListNode newHead = new ListNode(-1);
+        ListNode p = newHead;
+        while(list1 != null && list2 != null){
+            if(list1.val > list2.val){
+                p.next = list2;
+                p = p.next;
+                list2 = list2.next;
+                p.next = null;
+            }
+            else if(list1.val <= list2.val){ //开始写的是 if， 而不是else if ，导致在第一个list2走到空的时候，会必须执行这个，出现NPE
+                p.next = list1;
+                p = p.next;
+                list1 = list1.next;
+                p.next = null;
+
+            }
+            System.out.println(p.val);
+        }
+        if(list1 != null){
+            while(list1 != null){
+                p.next = list1;
+                p = p.next;
+                list1 = list1.next;
+            }
+        }
+        if(list2 != null){
+            while(list2 != null){
+                p.next = list2;
+                p = p.next;
+                list2 = list2.next;
+            }
+        }
+        return newHead.next;
+    }
+
     @Test
     public void testMergeTwoLists() {
-        int[] a = {1, 3, 5, 7, 9};
+//        int[] a = {1, 3, 5, 7, 9};
+        int[] a = {2};
+        int[] b = {1};
 //        int[] b = {2, 4, 6, 8, 10};
-        int[] b = {1, 10, 11};
+//        int[] b = {1, 10, 11};
         ListNode l1 = ListUtils.arrayToList(a);
         ListNode l2 = ListUtils.arrayToList(b);
-        ListNode head = mergeTwoLists(l1, l2);
+//        ListNode head = mergeTwoLists(l1, l2);
+        ListNode head = mergeTwoLists2(l1, l2);
         ListUtils.printList(head);
     }
 
