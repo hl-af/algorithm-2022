@@ -21,10 +21,23 @@ public class TwoPointer {
         return slow;
     }
 
+    public ListNode middleNode2(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
     @Test
     public void testMiddleNode() {
-        int[] a = {1,2,3,4,5,6};
-        ListNode head = middleNode(ListUtils.arrayToList(a));
+        int[] a = {1,2,3,4,5};
+        ListNode head = middleNode2(ListUtils.arrayToList(a));
         ListUtils.printList(head);
     }
 
@@ -54,10 +67,11 @@ public class TwoPointer {
         return slow;
     }
 
+
     @Test
     public void testGetKthFromEnd() {
         int[] a = {1,2,3,4,5,6,7,8};
-        System.out.println(getKthFromEnd(ListUtils.arrayToList(a), 10).val);
+        System.out.println(getKthFromEnd(ListUtils.arrayToList(a), 2).val);
     }
 
     /**
@@ -140,7 +154,7 @@ public class TwoPointer {
     public void testRotateRight() {
         int[] a = {1,2,3,4,5,6,7,8};
 //        ListUtils.printList(rotateRightMe(ListUtils.arrayToList(a), 2));
-        ListUtils.printList(rotateRight(ListUtils.arrayToList(a), 2));
+        ListUtils.printList(rotateRightMe(ListUtils.arrayToList(a), 2));
     }
 
     /**
