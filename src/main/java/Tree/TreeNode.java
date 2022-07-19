@@ -4,9 +4,9 @@ package Tree;
 public class TreeNode {
     TreeNode left;
     TreeNode right;
-    int num;
+    int val;
 
-    public TreeNode(int num) {
-        this.num = num;
+    public TreeNode(int val) {
+        this.val = val;
     }
 }

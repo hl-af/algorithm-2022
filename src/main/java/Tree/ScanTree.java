@@ -15,7 +15,7 @@ public class ScanTree {
         Deque<TreeNode> stack = new LinkedList<>();
         while (!stack.isEmpty() || root != null) {
             while (root != null) {
-                res.add(root.num);
+                res.add(root.val);
                 stack.push(root);
                 root = root.left;
             }
@@ -47,7 +47,7 @@ public class ScanTree {
                 root = root.left;
             }
             root = stack.pop();
-            res.add(root.num);
+            res.add(root.val);
             root = root.right;
         }
         return res;

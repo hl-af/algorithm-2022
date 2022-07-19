@@ -26,12 +26,12 @@ public class TreePath {
             return;
         }
         if (root.left == null && root.right == null) {
-            path = path + root.num;
+            path = path + root.val;
             pathList.add(path);
             return;
         }
         StringBuilder stringBuilder = new StringBuilder(path);
-        stringBuilder.append(root.num + "->");
+        stringBuilder.append(root.val + "->");
         doScanPath(root.left, stringBuilder.toString(), pathList);
         doScanPath(root.right, stringBuilder.toString(), pathList);
     }
@@ -56,14 +56,14 @@ public class TreePath {
             return true;
         }
         if (root.left == null && root.right == null) {
-            num = num + root.num;
+            num = num + root.val;
             if (num == sum) {
                 return true;
             } else {
                 return false;
             }
         }
-        num = num + root.num;
+        num = num + root.val;
         Boolean leftFlag = dfs(root.left, num, sum);
         Boolean rightFlag = dfs(root.right, num, sum);
         return leftFlag || rightFlag;
@@ -88,7 +88,7 @@ public class TreePath {
             return;
         }
         currentList = new ArrayList<>(currentList);
-        currentList.add(root.num);
+        currentList.add(root.val);
         if (root.left == null && root.right == null) {
             int sum = sum(currentList);
             if (sum == targetSum) {

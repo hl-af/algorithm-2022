@@ -23,7 +23,7 @@ public class DoublePointer {
             return false;
         }
 
-        if (p.num != q.num) {
+        if (p.val != q.val) {
             return false;
         }
         leftFlag = isSameTree(p.left, q.left);
@@ -71,7 +71,7 @@ public class DoublePointer {
             return false;
         }
 
-        if (p.num != q.num) {
+        if (p.val != q.val) {
             return false;
         }
         leftFlag = doSymmertric(p.left, q.right);
@@ -97,7 +97,7 @@ public class DoublePointer {
         if (p == null || q == null) {
             return false;
         }
-        if (p.num != q.num) {
+        if (p.val != q.val) {
             return false;
         }
         return isSymmetricTree(p.left, q.right) && isSymmetricTree(p.right, q.left);
@@ -119,7 +119,7 @@ public class DoublePointer {
         }
 
         if (p != null && q != null) {
-            p.num = p.num + q.num;
+            p.val = p.val + q.val;
         }
         if (p == null && q != null) {
             p = q;

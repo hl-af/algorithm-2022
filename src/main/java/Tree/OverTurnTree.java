@@ -53,7 +53,7 @@ public class OverTurnTree {
                 if (node.right != null) {
                     queue.add(node.right);
                 }
-                res.add(node.num);
+                res.add(node.val);
             }
         }
         return root;

@@ -16,7 +16,7 @@ public class OrderScanTree {
             return;
         }
 
-        res.add(root.num);
+        res.add(root.val);
         preOrderTraversal(root.left,res);
         preOrderTraversal(root.right,res);
     }
@@ -39,7 +39,7 @@ public class OrderScanTree {
             return;
         }
         inOrderTraversal(root.left, res);
-        res.add(root.num);
+        res.add(root.val);
         inOrderTraversal(root.right, res);
     }
 
@@ -61,7 +61,7 @@ public class OrderScanTree {
         }
         postOrderTraversal(root.left,res);
         postOrderTraversal(root.right, res);
-        res.add(root.num);
+        res.add(root.val);
     }
 
     @Test

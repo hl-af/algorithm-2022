@@ -2,10 +2,8 @@ package Tree;
 
 import org.junit.Test;
 
-import java.beans.IntrospectionException;
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.List;
 
 public class SearchTree {
 
@@ -19,11 +17,11 @@ public class SearchTree {
         if (root == null) {
             return null;
         }
-        if (root.num == val) {
+        if (root.val == val) {
             return root;
         }
         TreeNode node = null;
-        if (root.num > val) {
+        if (root.val > val) {
             node = searchBST(root.left, val);
         }else {
             node = searchBST(root.right, val);
@@ -49,13 +47,13 @@ public class SearchTree {
         }
         boolean flag = false;
         if (root.left != null) {
-            if (root.left.num < root.num) {
+            if (root.left.val < root.val) {
                 return false;
             }
         }
 
         if (root.right != null) {
-            if (root.right.num > root.num) {
+            if (root.right.val > root.val) {
                 return false;
             }
 
@@ -88,8 +86,8 @@ public class SearchTree {
 
         boolean leftFlag = isValidBST2(root.left);
 
-        if (root.num > minNum) { //注意不能有等于情况
-            minNum = root.num;
+        if (root.val > minNum) { //注意不能有等于情况
+            minNum = root.val;
         }else {
             return false;
         }
@@ -108,17 +106,17 @@ public class SearchTree {
         if (root == null) {
             return true;
         }
-        double inorder = root.num;
+        double inorder = root.val;
         while (!stack.isEmpty() || stack != null) {
             while (root != null) {
                 stack.push(root);
                 root = root.left;
             }
             root = stack.pop();
-            if (inorder >= root.num) {
+            if (inorder >= root.val) {
                 return false;
             }else {
-                inorder = root.num;
+                inorder = root.val;
             }
             root = root.right;
         }

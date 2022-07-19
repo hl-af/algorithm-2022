@@ -2,9 +2,7 @@ package Tree;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 /**
@@ -32,7 +30,7 @@ public class LeastLeftNode {
                 TreeNode node = queue.poll();
                 if (i == 0 && level > currentMinLevel) {
                     currentMinLevel = level;
-                    res = node.num;
+                    res = node.val;
                 }
                 level++;
                 if (node.left != null) {
@@ -78,7 +76,7 @@ public class LeastLeftNode {
                 }
             }
         }
-        return temp.num;
+        return temp.val;
     }
 
     @Test

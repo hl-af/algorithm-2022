@@ -1,5 +1,6 @@
 package Tree;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -80,5 +81,22 @@ public class TreeUtils {
 
     public static void printTree(List<Integer> res) {
         res.stream().forEach(num -> System.out.print(num + ","));
+    }
+
+    public static Node getNnodeTreeDemo(int n) {
+        int num = 1;
+        Node node = new Node(num++);
+        List<Node> children = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            children.add(new Node(num++));
+        }
+        node.children = children;
+        Node node1 = children.get(0);
+        List<Node> children1 = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            children1.add(new Node(num++));
+        }
+        node1.children = children1;
+        return node;
     }
 }
