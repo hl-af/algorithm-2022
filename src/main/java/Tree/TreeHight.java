@@ -33,38 +33,58 @@ public class TreeHight {
 
     /**
      * LeetCode 110:判断一个树是否为平衡树
+     * ⼀个⼆叉树每个节点 的左右两个⼦树的⾼度差的绝对值不超过 1
+     * 思路：返回树的高度，如果高度差不满足的时候返回-1，不再递归
      * @param root
      * @return
      */
-    public int isBalanceTree(TreeNode root) {
-        if (root == null) {
-            return 0;
+    public boolean isBalanced(TreeNode root) {
+        if(root == null){
+            return true;
+        }
+        int height = height(root);
+        if(height == -1){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public int height(TreeNode root){
+        if(root == null){
+            return 1;
+        }
+        int leftHeight = height(root.left);
+        if(leftHeight == -1){
+            return -1;
+        }
+        int rightHeight = height(root.right);
+        if(rightHeight == -1){
+            return -1;
+        }
+        if(Math.abs(leftHeight - rightHeight)>1){
+            return -1;
+        }else{
+            return Math.max(leftHeight,rightHeight) + 1;
         }
 
-        int left = isBalanceTree(root.left);
-        if (left == -1) {
-            return -1;
-        }
-        int right = isBalanceTree(root.right);
-        if (right == -1) {
-            return -1;
-        }
-        return Math.abs(left - right) < 2 ? Math.max(left, right) + 1 : -1;
     }
 
     @Test
     public void testIsBalanceTree() {
-        System.out.println(isBalanceTree(TreeUtils.getTreeDemo()));
+        System.out.println(isBalanced(TreeUtils.getTreeDemo()));
 
     }
 
     /**
      * LeetCode 111:求树的最小深度
      * 通过层序遍历实现
+     *
      * @param root
      * @return
      */
     public int minDeepth(TreeNode root) {
+
         Queue<TreeNode> queue = new LinkedList<>();
         int minDepth = Integer.MIN_VALUE;
         queue.add(root);
@@ -84,8 +104,28 @@ public class TreeHight {
                 }
             }
             ans++;
+        }
+        return -1;
     }
-    return -1;
+
+    /**
+     * LeetCode 111:求树的最小深度
+     * 通过层序遍历实现 : 高度和深度是一个递归思路
+     * @param root
+     * @return
+     */
+    public int minDepth(TreeNode root) {
+        if(root == null){
+            return 0;
+        }
+        if(root.left == null && root.right == null){
+            return 1;
+        }
+        int leftDepth = Integer.MAX_VALUE;
+        int rightDepth = Integer.MAX_VALUE;
+        if(root.left != null) leftDepth = minDepth(root.left);
+        if(root.right != null) rightDepth = minDepth(root.right);
+        return Math.min(leftDepth,rightDepth) + 1;
     }
 
     @Test
