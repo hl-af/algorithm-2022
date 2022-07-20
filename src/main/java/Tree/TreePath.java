@@ -25,7 +25,7 @@ public class TreePath {
         if (root == null) {
             return;
         }
-        if (root.left == null && root.right == null) {
+        if (root.left == null && root.right == null) { //要注意是判断叶子节点终止， 而不是root == null ，空节点终止，因为我们要在叶子节点做收尾工作
             path = path + root.val;
             pathList.add(path);
             return;

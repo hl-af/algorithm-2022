@@ -86,7 +86,4 @@ public class ScanTree {
         List<Integer> res = postOrderTraversal(TreeUtils.getTreeDemo());
         TreeUtils.printTree(res);
     }
-
-
-    //TODO 迭代法实现后续遍历
 }

@@ -110,8 +110,12 @@ public class DoublePointer {
     }
 
 
-
-
+    /**
+     * Leetcode617 合并二叉树
+     * @param p
+     * @param q
+     * @return
+     */
     public TreeNode mergeTree(TreeNode p, TreeNode q) {
 
         if (p == null && q == null) {
