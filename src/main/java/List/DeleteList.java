@@ -60,7 +60,14 @@ public class DeleteList {
         return dummyHead.next;
     }
 
-
+    /**
+     * LeetCode 203：给你⼀个链表的头节点 head 和⼀个整数 val ，请你删除链表中所有满⾜
+     * Node.val == val 的节点，并返回新的头节点 。
+     * 错误示范
+     * @param head
+     * @param val
+     * @return
+     */
     public ListNode removeElements2(ListNode head, int val) {
         ListNode dummyHead = new ListNode(-1);
         dummyHead.next = head;
