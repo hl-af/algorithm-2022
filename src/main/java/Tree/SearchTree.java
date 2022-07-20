@@ -158,7 +158,7 @@ public class SearchTree {
     public TreeNode dfs(int[] nums,int start,int end) {
 
         int mid = start + (end - start) / 2;
-        if (start > end) {
+        if (start > end) { //这里如果有等号就会用重复节点
             return null;
         }
         TreeNode root = new TreeNode(nums[mid]);
@@ -180,6 +180,9 @@ public class SearchTree {
 
     public static void main(String[] args) {
         System.out.println(Integer.MIN_VALUE);
+        int a = 1 / 2; //这个也是我经常忘记的知识点
+        System.out.println(a);
+
     }
 
 
