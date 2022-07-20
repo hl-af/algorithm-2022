@@ -63,15 +63,7 @@ public class SearchTree {
         return leftFlag && rightFlag;
     }
 
-    /**
-     * LeetCode 98: 验证是否是二叉搜索树
-     * 保证前面的数小雨后面的数即可，递归简单实现简单
-     *
-     * @param root
-     * @return
-     */
 
-    public long minNum = Long.MIN_VALUE;
 
     @Test
     public void testIsValidBST() {
@@ -79,6 +71,13 @@ public class SearchTree {
         System.out.println(isValidBST2(TreeUtils.getTreeDemo()));
     }
 
+    public long minNum = Long.MIN_VALUE;
+    /**
+     * LeetCode 98: 验证是否是二叉搜索树
+     * 使用中序遍历实现
+     * @param root
+     * @return
+     */
     public boolean isValidBST2(TreeNode root) {
         if (root == null) {
             return true;
@@ -97,10 +96,34 @@ public class SearchTree {
         return leftFlag && rightFlag;
     }
 
+    /**
+     * LeetCode 98: 验证是否是二叉搜索树
+     * 错误方法：判断左右子树是否是二叉搜索树，遍历法思路不是这样
+     * @param root
+     * @return
+     */
+    public boolean isValidBST4(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        if (root.val > minNum) { //注意不能有等于情况
+            minNum = root.val;
+        }else {
+            return false;
+        }
+        return isValidBST2(root.left)&& isValidBST(root.right);
+    }
 
 
 
 
+
+    /**
+     * LeetCode 98: 验证是否是二叉搜索树
+     * 中序遍历迭代法实现
+     * @param root
+     * @return
+     */
     public boolean isValidBST3(TreeNode root) {
         Deque<TreeNode> stack = new LinkedList<>();
         if (root == null) {
