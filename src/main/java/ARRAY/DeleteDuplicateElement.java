@@ -10,7 +10,7 @@ import java.util.Arrays;
  * 2.基于对于不符合条件的元素用有效元素覆盖
  * 3.分为重复元素类题目（此时数组有序）和删除指定元素（数组无序）
  * 4.重复元素类题目都是判断 nums[slow] != nums[fast] 或 nums[slow-1] != nums[fast],先slow移动，然后再覆盖
- * 5.删除指定元素，slow和fast同时移动，单slow会在不满足的节点停下来，然后让fast覆盖
+ * 5.删除指定元素，slow和fast同时移动，slow会在不满足的节点停下来 nums[fast] != target ，然后让fast覆盖
  * 6.快指针会一直移动
  */
 public class DeleteDuplicateElement {
