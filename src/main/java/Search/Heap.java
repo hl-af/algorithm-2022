@@ -10,7 +10,7 @@ import java.util.PriorityQueue;
 public class Heap {
 
     /**
-     * 寻找第k大元素
+     * LeetCode215 寻找第k大元素
      * @param nums
      * @param k
      * @return
@@ -27,11 +27,19 @@ public class Heap {
         for (int i = k - 1; i < nums.length; i++) {
             int peak = minHeap.peek();
             if (nums[i] > peak) {
-                minHeap.poll();
+                minHeap.poll(); //如果没有这句的话，会导致这个堆会一直扩大，无法维护K个
                 minHeap.add(nums[i]);
             }
         }
         return minHeap.peek();
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 3, 4, 5, 6, 6, 7};
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>(2,(a,b)->a-b);
+        for (int i = 0; i < nums.length; i++) {
+            minHeap.add(nums[i]);
+        }
     }
 
     @Test

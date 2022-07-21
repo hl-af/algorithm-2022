@@ -24,6 +24,10 @@ public class BiSearchBase {
         return -1;
     }
 
+
+
+
+
     @Test
     public void testCirculation() {
         int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9};
@@ -55,6 +59,42 @@ public class BiSearchBase {
         int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         int result = searchByRecursion(array, 0, 8, 4);
         System.out.println(result);
+    }
+
+
+    /**
+     * 找到数组中的重复元素，1 2 2 222 22222 2 2 2 3 4 5 6 返回第一个元素
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int search(int[] nums, int target) {
+        if (nums == null || nums.length == 0) {
+            return -1;
+        }
+        int low = 0;
+        int high = nums.length - 1;
+        while (low <= high) {
+            int middle = low + ((high - low) >> 1);
+            int temp = nums[middle];
+            if (target < temp) {
+                high = middle - 1;
+            } else if (temp < target) {
+                low = middle + 1;
+            } else {
+                while (middle >= 1 && nums[middle-1] == target) {
+                    middle--;
+                }
+                return middle;
+            }
+        }
+        return -1;
+    }
+
+    @Test
+    public void testFindDuplicatesElement() {
+        int[] a = {2, 2, 2, 2, 2, 2, 2, 3, 4, 5, 6, 7};
+        System.out.println(search(a, 2));
     }
 }
 
