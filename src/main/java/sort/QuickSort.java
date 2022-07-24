@@ -34,9 +34,38 @@ public class QuickSort {
         quickSort(array, left, end);
     }
 
+    public void quickSortTest(int[] array, int start, int end) {
+        if (start > end) {
+            return;
+        }
+        int middle = start + ((end - start) >> 1);
+        int pivot = array[middle];
+        int left = start;
+        int right = end;
+        while (left <= right) {
+            while (pivot > array[left]) {
+                left++;
+            }
+            while (pivot < array[right]) {
+                right--;
+            }
+            int temp = array[left];
+            if (left < right) {
+                array[left] = array[right];
+                array[right] = temp;
+                left++;
+                right--;
+            }
+
+        }
+        quickSortTest(array, start, right);
+        quickSortTest(array, left, end);
+    }
+
     @Test
     public void testQuickSort() {
-        int[] a = {4, 2, 8, 7, 3, 5, 6};
+//        int[] a = {4, 2, 8, 7, 3, 5, 6};
+        int[] a = {2, 2, 2, 2, 1, 2, 2};
         quickSort(a, 0, a.length - 1);
         ArrayUtils.printArray(a);
     }

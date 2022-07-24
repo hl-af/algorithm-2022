@@ -71,10 +71,34 @@ public class HotQuestion {
         return -1;
     }
 
+    /**
+     * 山峰数组
+     * 死循环的例子
+     * @param arr
+     * @return
+     */
+    public int peakIndexInMountainArray2(int[] arr) {
+        int low = 1;
+        int high = arr.length - 1;
+        while (low < high) {
+            int middle = low + ((high - low) >> 1);
+            int num = arr[middle];
+            if (arr[middle - 1] < num && num < arr[middle + 1]) {
+                low = middle + 1;
+            } else if (arr[middle - 1] > num && num > arr[middle + 1]) {
+                high = middle - 1;
+            } else if (arr[middle - 1] < num && arr[middle + 1] < num) {
+                return middle;
+            }
+        }
+        return -1;
+    }
     @Test
     public void testPeakIndexInMountainArray() {
-        int[] array = {11, 13, 15, 17, 14, 12, 10};
-        int result = peakIndexInMountainArray(array);
+//        int[] array = {11, 13, 15, 17, 14, 12, 10};
+        int[] array = {3,4,5,1};
+//        int result = peakIndexInMountainArray(array);
+        int result = peakIndexInMountainArray2(array);
         System.out.println(result);
     }
 
@@ -136,7 +160,7 @@ public class HotQuestion {
 
     /**
      * 剑指offer
-     * ⼀个⻓度为n-1的递增排序数组中的所有数字都是唯⼀的，并且每个数字都在范围0～n-1之内。在
+     * 寻找缺失数字：⼀个⻓度为n-1的递增排序数组中的所有数字都是唯⼀的，并且每个数字都在范围0～n-1之内。在
      * 范围0～n-1内的n个数字中有且只有⼀个数字不在该数组中
      * @param nums
      * @return
@@ -150,10 +174,10 @@ public class HotQuestion {
             if (nums[mid] == mid) {
                 low = mid + 1;
             }else {
-                high = mid - 1;
+                high = mid - 1;//这里没有返回目标值，使用了left作为返回
             }
         }
-        return mid;
+        return low;
     }
 
     @Test
@@ -163,6 +187,12 @@ public class HotQuestion {
         System.out.println(result);
     }
 
+    /**
+     * LeetCode 69 实现函数 int sqrt(int x).计算并返回x的平⽅根这个题的思路是⽤最快的⽅式找到n*n=x的n。
+     * 没办法全部ac
+     * @param x
+     * @return
+     */
     public int sqrt(int x) {
         int low = 0;
         int high = x;
