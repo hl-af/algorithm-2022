@@ -82,6 +82,7 @@ public class Heap {
         int[] a3 = {2, 6};
         ListNode[] lists = {ListUtils.arrayToList(a1), ListUtils.arrayToList(a2), ListUtils.arrayToList(a3)};
         ListNode result = mergeKLists(lists);
+
         ListUtils.printList(result);
 
     }
