@@ -45,4 +45,59 @@ public class HotQuestion {
         System.out.println(isValid(a));
     }
 
+    /**
+     *LeetCode150.根据 逆波兰表示法，求表达式的值。
+     * @param tokens
+     * @return
+     */
+    public int evalRPN(String[] tokens) {
+        Set<String> symbolSet = new HashSet<>();
+        symbolSet.add("+");
+        symbolSet.add("-");
+        symbolSet.add("*");
+        symbolSet.add("/");
+        Stack<String> stack = new Stack<>();
+        boolean firstSymbol = true;
+        Long result = -1l;
+        for (int i = 0; i < tokens.length; i++) {
+            if (symbolSet.contains(tokens[i])) {
+                if (firstSymbol) {
+                    String right = stack.pop();
+                    String left = stack.pop();
+                    result = fun(left, right, tokens[i]);
+                    firstSymbol = false;
+                }else {
+                    result = fun(stack.pop(),String.valueOf(result), tokens[i]);
+                }
+            }else {
+                stack.push(tokens[i]);
+            }
+        }
+        return result.intValue();
+    }
+
+    long fun(String left, String right, String symbol) {
+        long a = Long.valueOf(left);
+        long b = Long.valueOf(right);
+        if (symbol == "+") {
+            return a + b;
+        }
+        if (symbol == "-") {
+            return a - b;
+        }
+        if (symbol == "/") {
+            return a / b;
+        }
+        if (symbol == "*") {
+            return a * b;
+        }
+        return -1;
+    }
+
+    @Test
+    public void testEvalRPN() {
+        String[] tokens = {"4","13","5","/","+"};
+        System.out.println(evalRPN(tokens));
+    }
+
 }
