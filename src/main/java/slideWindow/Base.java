@@ -66,4 +66,32 @@ public class Base {
     }
 
 
+    /**
+     * LeetCode674 寻找递增最长子序列
+     * @param nums
+     * @return
+     */
+    public static int findLengthOfLCIS(int[] nums) {
+        if (nums == null || nums.length <= 0) {
+            return -1;
+        }
+        int left = 0;
+        int right = 1;
+        int res = Integer.MIN_VALUE;
+        while (right < nums.length) {
+            if (nums[right] <= nums[right - 1]) {//需要加上等号
+                left = right;
+            }
+            right++; // 提前加来对齐长度
+            res = Math.max(right - left , res);
+        }
+        return res;
+    }
+    @Test
+    public void testFindLengthOfLCIS() {
+        int[] a = {1, 2, 3, 3, 5, 6};
+        System.out.println(findLengthOfLCIS(a));
+    }
+
+
 }
