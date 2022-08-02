@@ -88,4 +88,31 @@ public class NotDuplicatedNum {
         System.out.println(lengthOfLongestSubstring("ebec"));
     }
 
+    /**
+     * LeetCode340 给定⼀个字符串 s，找出 ⾄多 包含 k 个不同字符的最⻓⼦串T。
+     * @param s
+     * @param k
+     * @return
+     */
+    public int lengthOfLongestSubstringKDistinct(String s, int k) {
+        Map<Character, Integer> map = new HashMap<>();
+        int res = Integer.MIN_VALUE;
+        int left = 0;
+        for (int right = 0; right < s.length(); right++) {
+            if (map.keySet().size() > k) {
+                int index = Collections.min(map.values());
+                left = index + 1;
+                map.remove(s.charAt(index));
+            }
+            res = Math.max(right - left + 1, res);
+            map.put(s.charAt(right), right);
+        }
+        return res;
+    }
+
+    @Test
+    public void testLengthOfLongestSubstringKDistinct() {
+        System.out.println(lengthOfLongestSubstringKDistinct("abcecccc", 3));
+    }
+
 }
