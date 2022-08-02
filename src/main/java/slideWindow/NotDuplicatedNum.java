@@ -2,8 +2,7 @@ package slideWindow;
 
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class NotDuplicatedNum {
 
@@ -35,4 +34,58 @@ public class NotDuplicatedNum {
         String a = "abcabcbb";
         System.out.println(lengthOfLongestSubstring(a));
     }
+
+    /**
+     * LeetCode159 ⾄多包含两个不同字符的最⻓⼦串
+     * 自己实现的方式：使用集合来记录不重复的元素，left移动到right位置，有待leetcode检验
+     * @param s
+     * @return
+     */
+    public int lengthOfLongestSubstringTwoDistinctMe(String s) {
+        Set<Character> set = new HashSet<>(); // 使用集合的话无法记录下标位置，left的移动就不是滑动窗，而是跳跃窗
+        Integer res = Integer.MIN_VALUE;
+        int left = 0;
+        for (int right = 0; right < s.length(); right++) {
+            if (set.contains(s.charAt(right)) && set.size() >2 ) {
+                res = Math.max(right - left, res);
+                left = right;
+                set.clear();
+            }
+            set.add(s.charAt(right));
+        }
+        if (res == Integer.MIN_VALUE) {
+            return s.length();
+        }else {
+            return res;
+        }
+
+    }
+
+    /**
+     * LeetCode159 ⾄多包含两个不同字符的最⻓⼦串
+     * 答案思路版本（待leetcode验证）
+     * @param s
+     * @return
+     */
+    public int lengthOfLongestSubstringTwoDistinct(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        int res = Integer.MIN_VALUE;
+        int left = 0;
+        for (int right = 0; right < s.length(); right++) {
+            if (map.keySet().size() > 2) {
+                int index = Collections.min(map.values());
+                map.remove(s.charAt(index));
+                left = index + 1;
+            }
+            map.put(s.charAt(right), right);
+            res = Math.max(res, right - left + 1);
+        }
+        return res;
+    }
+
+    @Test
+    public void testLengthOfLongestSubstringTwoDistinct() {
+        System.out.println(lengthOfLongestSubstring("ebec"));
+    }
+
 }
