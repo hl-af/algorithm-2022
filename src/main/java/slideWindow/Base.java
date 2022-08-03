@@ -2,6 +2,10 @@ package slideWindow;
 
 import org.junit.Test;
 
+/**
+ * 1. 滑动窗是否是固定长度，决定了left 和 right 的初始值
+ * 2. 滑动窗左端移动规则 ： 渐进式移动还是跳跃式移动
+ */
 public class Base {
 
     /**
@@ -93,30 +97,6 @@ public class Base {
         System.out.println(findLengthOfLCIS(a));
     }
 
-    /**
-     * LeetCode209 ⻓度最⼩的⼦数组,给定⼀个含有 n 个正整数的数组和⼀个正整数 target
-     * @param target
-     * @param nums
-     * @return
-     */
-    public int minSubArrayLenMe(int target, int[] nums) {
-        int left = 0;
-        int right = 1;
-        int curSum = 0;
-        int res = Integer.MAX_VALUE;
-        while (left <= right) {
-            curSum = curSum + nums[right];
-            if (right < nums.length) {
-                right++;
-            }
-            if (curSum >= target) {
-                curSum = curSum - nums[left];
-                res = Math.min(res, right - left + 1);
-                left++;
-            }
-        }
-        return res;
-    }
 
     /**
      * LeetCode209 ⻓度最⼩的⼦数组,给定⼀个含有 n 个正整数的数组和⼀个正整数 target，使得最小数组大于target
