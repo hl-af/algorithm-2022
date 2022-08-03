@@ -2,6 +2,8 @@ package slideWindow;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 /**
  * 1. 滑动窗是否是固定长度，决定了left 和 right 的初始值
  * 2. 滑动窗左端移动规则 ： 渐进式移动还是跳跃式移动
@@ -125,5 +127,43 @@ public class Base {
         System.out.println(minSubArrayLen(7, a));
     }
 
+    /**
+     * LeetCode75，荷兰国旗问题
+     * 双指针两次遍历
+     * @param nums
+     */
+    public void sortColors(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+        int zeroNum = nums.length /3 ;
+        while (left <= right) {
+            if (nums[left] - nums[right] == 2) {
+                int temp = nums[left];
+                nums[left] = nums[right];
+                nums[right] = temp;
+                left++;
+            }
+            right--;
+        }
 
+        left = zeroNum;
+        right = nums.length - 1;
+        while (left <= right) {
+            if (nums[left] - nums[right] == 1) {
+                int temp = nums[left];
+                nums[left] = nums[right];
+                nums[right] = temp;
+                left++;
+            }
+            right--;
+        }
+
+    }
+
+    @Test
+    public void testSortColors() {
+        int[] a = {2, 0, 2, 1, 1, 0};
+        sortColors(a);
+        System.out.println(Arrays.toString(a));
+    }
 }
