@@ -74,19 +74,41 @@ public class Base {
 
 
     /**
-     * LeetCode674 寻找递增最长子序列
+     * LeetCode 674 寻找递增最长子序列
+     * 我自己的实现
      * @param nums
      * @return
      */
-    public static int findLengthOfLCIS(int[] nums) {
+    public int findLengthOfLCISMe(int[] nums) {
         if (nums == null || nums.length <= 0) {
             return -1;
         }
         int left = 0;
-        int right = 1;
+        int right = 1; // // 这样的写法默认了数组最小长度是2，对于输入数组长度是1的问题无法求解
         int res = Integer.MIN_VALUE;
         while (right < nums.length) {
             if (nums[right] <= nums[right - 1]) {//需要加上等号
+                left = right;
+            }
+            right++; // 提前加来对齐长度
+            res = Math.max(right - left , res);
+        }
+        return res;
+    }
+
+    /**
+     * LeetCode 674 寻找递增最长子序列
+     * 我自己的实现
+     * @param nums
+     * @return
+     */
+    public int findLengthOfLCIS(int[] nums) {
+
+        int left = 0;
+        int right = 0;
+        int res = Integer.MIN_VALUE;
+        while (right < nums.length) {
+            if (right > 0 && nums[right] <= nums[right - 1]) {//需要加上等号
                 left = right;
             }
             right++; // 提前加来对齐长度

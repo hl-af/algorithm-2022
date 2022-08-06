@@ -1,6 +1,9 @@
 package string;
 
+import List.KthFromEnd;
 import org.junit.Test;
+
+import java.util.Arrays;
 
 public class StringTest {
 
@@ -128,5 +131,72 @@ public class StringTest {
             index++;
         }
         return res;
+    }
+
+
+    /**
+     * LeetCode344. 反转字符串
+     * @param s
+     */
+    public void reverseString(char[] s) {
+        if (s == null || s.length == 0) {
+            return;
+        }
+        int left = 0;
+        int right = s.length - 1;
+        while (left < right) {
+            char temp = s[left];
+            s[left] = s[right];
+            s[right] = temp;
+            left++;
+            right--;
+        }
+        return;
+    }
+
+    @Test
+    public void testReverseString() {
+        String s = "hello";
+        char[] a = s.toCharArray();
+        reverseString(a);
+        System.out.println(Arrays.toString(a));
+    }
+
+    //LeetCode541. K个⼀组反转
+    public String reverseStr(String s, int k) {
+        if (s == null || s.length() == 0) {
+            return new String();
+        }
+        char[] chars = s.toCharArray();
+        int index = 0;
+        while (index < chars.length) {
+            int left = index;
+            int right = index + k - 1;
+            reverseCharArray(chars, left, right);
+            index = index + 2 * k;
+        }
+        if (index < chars.length) {
+            int left = index;
+            int right = chars.length - 1;
+            reverseCharArray(chars, left, right);
+        }
+        return String.valueOf(chars);
+    }
+
+    public void reverseCharArray(char[] chars, int left, int right) {
+        while (left < right) {
+            char temp = chars[left];
+            chars[left] = chars[right];
+            chars[right] = temp;
+            left++;
+            right--;
+        }
+    }
+
+    @Test
+    public void testReverseStr() {
+        String a = "abcd efg";
+        System.out.println(reverseStr(a, 2));
+
     }
 }

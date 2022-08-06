@@ -29,10 +29,33 @@ public class NotDuplicatedNum {
         return max;
     }
 
+    /**
+     * LeetCode3 给定⼀个字符串 s,找出最长不重复子串
+     * 使用集合实现
+     * @param s
+     * @return
+     */
+    public int lengthOfLongestSubstringMe(String s) {
+        Set<Character> set = new HashSet<>();
+        int left = 0;
+        int res = Integer.MIN_VALUE;
+        for (int right = 0; right < s.length(); right++) {
+            if (set.contains(s.charAt(right))) {
+                left = right;
+                set = new HashSet<>();
+            }else {
+                set.add(s.charAt(right));
+            }
+            res = Math.max(res, right - left + 1);
+        }
+        return res;
+    }
+
     @Test
     public void testLengthOfLongestSubstring(){
-        String a = "abcabcbb";
-        System.out.println(lengthOfLongestSubstring(a));
+//        String a = "abbacabcbb";
+        String a = "bbbbbb";
+        System.out.println(lengthOfLongestSubstringMe(a));
     }
 
     /**
@@ -82,6 +105,7 @@ public class NotDuplicatedNum {
         }
         return res;
     }
+
 
     @Test
     public void testLengthOfLongestSubstringTwoDistinct() {
