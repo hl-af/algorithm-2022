@@ -38,8 +38,9 @@ public class StaticsMethod {
 
     @Test
     public void testMaxSlidingWindow() {
-        int[] a = {1, 3, -1, -3, 5, 3, 6, 7};
-        System.out.println(Arrays.toString(maxSlidingWindow(a, 3)));
+//        int[] a = {1, 3, -1, -3, 5, 3, 6, 7};
+        int[] a = {9, 10, 9, -7, -4, -8, 2, -6};
+        System.out.println(Arrays.toString(maxSlidingWindow(a, 5)));
     }
 
     /**
@@ -61,15 +62,16 @@ public class StaticsMethod {
             minHeap.offer(new int[]{nums[i],i});
         }
         List<Integer> res = new ArrayList<>();
+        res.add(minHeap.peek()[0]);
         for (int right = k; right < nums.length; right++) {
             minHeap.offer(new int[]{nums[right],right});
-            if (minHeap.peek()[1] < right - k) {
+            while (minHeap.peek()[1] <= right - k) { // 这里是 while 不是 if，能保证里面的个数为k个
                 minHeap.poll();
             }
-            res.add(minHeap.peek()[0]);
+            res.add(minHeap.peek()[0]); //先确定好两边的增减，然后再放入结果中
         }
         return res.stream().mapToInt(Integer::intValue).toArray();
-
-
     }
+
+
 }

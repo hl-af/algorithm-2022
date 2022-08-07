@@ -19,9 +19,9 @@ public class NotDuplicatedNum {
         int max = -1;
         for (int right = 0; right < s.length(); right++) {
             if (map.containsKey(s.charAt(right))) {
-                int num = map.get(s.charAt(right));
-                //left = Math.max(left, map.get(s.charAt(right)) + 1); 答案写法，不懂
-                left = num + 1;
+//                int num = map.get(s.charAt(right)); //失败用例:dvdf
+//                int num = Math.max(left,map.get(s.charAt(right))); //失败用例:abba
+                left = Math.max(left, map.get(s.charAt(right)) + 1);
             }
             map.put(s.charAt(right), right);
             max = Math.max(right - left + 1, max);
@@ -29,33 +29,12 @@ public class NotDuplicatedNum {
         return max;
     }
 
-    /**
-     * LeetCode3 给定⼀个字符串 s,找出最长不重复子串
-     * 使用集合实现
-     * @param s
-     * @return
-     */
-    public int lengthOfLongestSubstringMe(String s) {
-        Set<Character> set = new HashSet<>();
-        int left = 0;
-        int res = Integer.MIN_VALUE;
-        for (int right = 0; right < s.length(); right++) {
-            if (set.contains(s.charAt(right))) {
-                left = right;
-                set = new HashSet<>();
-            }else {
-                set.add(s.charAt(right));
-            }
-            res = Math.max(res, right - left + 1);
-        }
-        return res;
-    }
 
     @Test
     public void testLengthOfLongestSubstring(){
 //        String a = "abbacabcbb";
         String a = "bbbbbb";
-        System.out.println(lengthOfLongestSubstringMe(a));
+        System.out.println(lengthOfLongestSubstring(a));
     }
 
     /**

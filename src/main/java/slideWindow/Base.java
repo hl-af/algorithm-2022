@@ -152,10 +152,11 @@ public class Base {
 
     /**
      * LeetCode75，荷兰国旗问题
+     * 失败case:[1,0,2]
      * 双指针两次遍历
      * @param nums
      */
-    public void sortColors(int[] nums) {
+    public void sortColorsMe(int[] nums) {
         int left = 0;
         int right = nums.length - 1;
         int zeroNum = nums.length /3 ;
@@ -181,6 +182,32 @@ public class Base {
             right--;
         }
 
+    }
+
+    /**
+     * LeetCode75，荷兰国旗问题
+     * @param nums
+     */
+    public void sortColors(int[] nums) {
+        int left = 0;
+        int right = 0;
+        for (right = 0; right < nums.length; right++) {
+            if (nums[right] == 0) {
+                int temp = nums[right];
+                nums[right] = nums[left];
+                nums[left] = temp;
+                left++;
+            }
+        }
+
+        for (right = left; right < nums.length; right++) {
+            if (nums[right] == 1) {
+                int temp = nums[right];
+                nums[right] = nums[left];
+                nums[left] = temp;
+                left++;
+            }
+        }
     }
 
     @Test
