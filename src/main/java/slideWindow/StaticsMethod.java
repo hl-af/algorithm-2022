@@ -8,6 +8,68 @@ import java.util.*;
 public class StaticsMethod {
 
     /**
+     * LeetCode643 给定 n 个整数，找出平均数最⼤且⻓度为 k 的连续⼦数组，并输出该最⼤平均数。
+     * 自己实现
+     * @param nums
+     * @param k
+     * @return
+     */
+    public double findMaxAverageMe(int[] nums, int k) {
+
+        int left = 0;
+        int right = k - 1;
+        int curSum = 0;
+        for (int i = left; i <= right ; i++) {
+            curSum = curSum + nums[i];
+        }
+        int maxSum = curSum;
+        left = left + 1;
+        right = right + 1;
+        while (right <= nums.length - 1) {
+            curSum = curSum - nums[left - 1] + nums[right];
+            if (maxSum < curSum) {
+                maxSum = curSum;
+            }
+            left++;
+            right++;
+        }
+        return maxSum/k;
+    }
+
+    /**
+     * LeetCode643 给定 n 个整数，找出平均数最⼤且⻓度为 k 的连续⼦数组，并输出该最⼤平均数。
+     * 最佳实践
+     * @param nums
+     * @param k
+     * @return
+     */
+    public double findMaxAverage(int[] nums, int k) {
+        if (nums == null || nums.length == 0 || k < 0) {
+            return -1;
+        }
+        int curSum = 0;
+        for (int i = 0; i < k; i++) {
+            curSum = curSum + nums[i];
+        }
+        int res = Integer.MIN_VALUE;
+        for (int right = k; right < nums.length; right++) {
+            curSum = curSum - nums[right - k] + nums[right];
+            if (res < curSum) {
+                res = curSum;
+            }
+        }
+        return (double)res / k;
+    }
+
+
+    @Test
+    public void testFindMaxAverage() {
+        int[] a = {1, 12, -5, -6, 50, 3};
+        System.out.println(findMaxAverage(a, 4));
+    }
+
+
+    /**
      * LeetCode239 给你⼀个整数数组 nums，有⼀个⼤⼩为 k 的滑动窗⼝从数组的最左侧移动到数组的最右侧。你只
      * 可以看到在滑动窗⼝内的 k 个数字。滑动窗⼝每次只向右移动⼀位，返回滑动窗⼝中的最⼤值。
      * 自己实现的不优雅的滑动窗口
