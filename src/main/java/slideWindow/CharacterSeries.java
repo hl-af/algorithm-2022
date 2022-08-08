@@ -22,6 +22,9 @@ public class CharacterSeries {
         int[] arrayS1 = new int[26];
         int[] arrayS2 = new int[26];
         int len = s1.length();
+        if(s1.length() > s2.length()){ // 题目中没有规定s1 和 s2 d大小关系，所以要考虑到
+            return false;
+        }
         // 初始化标准数组arrayS1, s1先遍历前3
         for (int i = 0; i < s1.length(); i++) {
             arrayS1[s1.charAt(i) - 'a']++;
@@ -34,13 +37,18 @@ public class CharacterSeries {
             arrayS2[s2.charAt(i) - 'a']++;
             arrayS2[s2.charAt(i - len) - 'a']--;
         }
+        if (Arrays.equals(arrayS1,arrayS2)) { //需要避免最后一个窗口匹配的情况
+            return true;
+        }
         return false;
     }
 
     @Test
     public void testCheckInclusion() {
-        String s1 = "ce";
-        String s2 = "abceftg";
+//        String s1 = "ce";
+//        String s2 = "abceftg";
+        String s1 = "adc";
+        String s2 = "dcda";
         System.out.println(checkInclusion(s1, s2));
     }
     /**
@@ -73,6 +81,7 @@ public class CharacterSeries {
     public void testFindAnagrams() {
         String p = "abc";
         String s = "cbaebabacd";
+
         List<Integer> result = findAnagrams(s, p);
         System.out.println(Arrays.toString(result.toArray()));
     }
