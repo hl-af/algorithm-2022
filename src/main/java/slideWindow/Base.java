@@ -7,88 +7,20 @@ import java.util.Arrays;
 /**
  * 1. 滑动窗是否是固定长度，决定了left 和 right 的初始值
  * 2. 滑动窗左端移动规则 ： 渐进式移动还是跳跃式移动
- * 3. 方法论：（1）异位字符：数组存储 （2）统计窗口：堆  （3）不重复字符串：map<字符，下标> (4)统计类 ： 求平均数  求最大值
+ * 3. 题型分类和方法论：
+ * （1）异位字符：
+ *   固定窗口，使用数组判断位置，遍历增加次数，左出又进增加字符串，次数一样为有异位词
+ * （2）不重复字符串问题：
+ *   不重复子串：map<字符，下标> 确定left的下一步位移为max(right + 1,left)
+ *   k个重复判断：key的个数判断，如果超过移除最小位置元素，left移动到最小元素的下一个
+ * （3）统计类 ：
+ *   求平均数: 进一退一求平均，求平均可以一步完成
+ *   求最大值: 进一退一 + 堆，求最大值需要借助堆和从堆中取出元素
+ *   最长递增子数组：不递增的时候left跳跃到right
+ *   加和最短长度： 满足条件就把left不断减少
  */
 public class Base {
 
-
-
-    /**
-     * LeetCode 674 寻找递增最长子序列
-     * 我自己的实现
-     * @param nums
-     * @return
-     */
-    public int findLengthOfLCISMe(int[] nums) {
-        if (nums == null || nums.length <= 0) {
-            return -1;
-        }
-        int left = 0;
-        int right = 1; // // 这样的写法默认了数组最小长度是2，对于输入数组长度是1的问题无法求解
-        int res = Integer.MIN_VALUE;
-        while (right < nums.length) {
-            if (nums[right] <= nums[right - 1]) {//需要加上等号
-                left = right;
-            }
-            right++; // 提前加来对齐长度
-            res = Math.max(right - left , res);
-        }
-        return res;
-    }
-
-    /**
-     * LeetCode 674 寻找递增最长子序列
-     * 我自己的实现
-     * @param nums
-     * @return
-     */
-    public int findLengthOfLCIS(int[] nums) {
-
-        int left = 0;
-        int right = 0;
-        int res = Integer.MIN_VALUE;
-        while (right < nums.length) {
-            if (right > 0 && nums[right] <= nums[right - 1]) {//需要加上等号
-                left = right;
-            }
-            right++; // 提前加来对齐长度
-            res = Math.max(right - left , res);
-        }
-        return res;
-    }
-    @Test
-    public void testFindLengthOfLCIS() {
-        int[] a = {1, 2, 3, 3, 5, 6};
-        System.out.println(findLengthOfLCIS(a));
-    }
-
-
-    /**
-     * LeetCode209 ⻓度最⼩的⼦数组,给定⼀个含有 n 个正整数的数组和⼀个正整数 target，使得最小数组大于target
-     * @param target
-     * @param nums
-     * @return
-     */
-    public int minSubArrayLen(int target, int[] nums) {
-        int left = 0;
-        int right = 0;
-        int currentSum = 0;
-        int res = Integer.MAX_VALUE;
-        while (right < nums.length) {
-            currentSum = currentSum + nums[right++]; //这个求和条件放到后面就有问题，如果放在后面就会少加最后一位
-            while (currentSum >= target) {
-                res = Math.min(right - left, res);
-                currentSum = currentSum - nums[left++];
-            }
-        }
-        return res == Integer.MAX_VALUE ? 0 : res;
-    }
-
-    @Test
-    public void testMinSubArrayLen() {
-        int[] a = {2, 3, 1, 2, 4, 3};
-        System.out.println(minSubArrayLen(7, a));
-    }
 
     /**
      * LeetCode75，荷兰国旗问题

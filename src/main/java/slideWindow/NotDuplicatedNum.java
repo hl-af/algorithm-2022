@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import java.util.*;
 
+/**
+ * 重复子串问题
+ */
 public class NotDuplicatedNum {
 
 

@@ -8,6 +8,84 @@ import java.util.*;
 public class StaticsMethod {
 
     /**
+     * LeetCode 674 寻找递增最长子序列
+     * 我自己的实现
+     * @param nums
+     * @return
+     */
+    public int findLengthOfLCISMe(int[] nums) {
+        if (nums == null || nums.length <= 0) {
+            return -1;
+        }
+        int left = 0;
+        int right = 1; // // 这样的写法默认了数组最小长度是2，对于输入数组长度是1的问题无法求解
+        int res = Integer.MIN_VALUE;
+        while (right < nums.length) {
+            if (nums[right] <= nums[right - 1]) {//需要加上等号
+                left = right;
+            }
+            right++; // 提前加来对齐长度
+            res = Math.max(right - left , res);
+        }
+        return res;
+    }
+
+    /**
+     * LeetCode 674 寻找递增最长子序列
+     * 我自己的实现
+     * @param nums
+     * @return
+     */
+    public int findLengthOfLCIS(int[] nums) {
+
+        int left = 0;
+        int right = 0;
+        int res = Integer.MIN_VALUE;
+        while (right < nums.length) {
+            if (right > 0 && nums[right] <= nums[right - 1]) {//需要加上等号
+                left = right;
+            }
+            right++; // 提前加来对齐长度
+            res = Math.max(right - left , res);
+        }
+        return res;
+    }
+    @Test
+    public void testFindLengthOfLCIS() {
+        int[] a = {1, 2, 3, 3, 5, 6};
+        System.out.println(findLengthOfLCIS(a));
+    }
+
+
+    /**
+     * LeetCode209 ⻓度最⼩的⼦数组,给定⼀个含有 n 个正整数的数组和⼀个正整数 target，使得最小数组大于target
+     * @param target
+     * @param nums
+     * @return
+     */
+    public int minSubArrayLen(int target, int[] nums) {
+        int left = 0;
+        int right = 0;
+        int currentSum = 0;
+        int res = Integer.MAX_VALUE;
+        while (right < nums.length) {
+            currentSum = currentSum + nums[right++]; //这个求和条件放到后面就有问题，如果放在后面就会少加最后一位
+            while (currentSum >= target) {
+                res = Math.min(right - left, res);
+                currentSum = currentSum - nums[left++];
+            }
+        }
+        return res == Integer.MAX_VALUE ? 0 : res;
+    }
+
+    @Test
+    public void testMinSubArrayLen() {
+        int[] a = {2, 3, 1, 2, 4, 3};
+        System.out.println(minSubArrayLen(7, a));
+    }
+
+
+    /**
      * LeetCode643 给定 n 个整数，找出平均数最⼤且⻓度为 k 的连续⼦数组，并输出该最⼤平均数。
      * 自己实现
      * @param nums

@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.util.*;
 
 /**
- * 字符类滑动窗口题目
+ * 异位字符类滑动窗口题目
  */
 public class CharacterSeries {
 
