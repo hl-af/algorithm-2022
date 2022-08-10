@@ -4,6 +4,8 @@ import List.KthFromEnd;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Stack;
 
 public class StringTest {
@@ -266,5 +268,82 @@ public class StringTest {
         return String.valueOf(array);
     }
 
+
+    /**
+     * LeetCode151. 反转字符串⾥的单词
+     * 使用java语言特性实现，自己实现的思路
+     * @param s
+     * @return
+     */
+    public String reverseWords(String s) {
+        String[] words = s.split(" "); //如果有连续的空格，会分出来好多个""
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = words.length - 1; i >= 0; i--) {
+            stringBuffer.append(words[i]);
+            stringBuffer.append(" ");
+        }
+        return stringBuffer.toString();
+    }
+
+    /**
+     * LeetCode151. 反转字符串⾥的单词
+     * 使用java语言特性实现，答案的思路
+     * @param s
+     * @return
+     */
+    public String reverseWordsAnswer(String s) {
+        if (s == null || s.length() == 0) {
+            return new String();
+        }
+        List<String> wordList = Arrays.asList(s.split("\\s+"));//连续空格分割
+        Collections.reverse(wordList);
+        return String.join(" ", wordList);
+    }
+
+    @Test
+    public void testReverseWords() {
+        String strings = "   i am confused";
+        System.out.println(reverseWordsAnswer(strings));
+    }
+
+
+    /**
+     * LeetCode557. 反转字符串中的单词 III
+     * @param s
+     * @return
+     */
+    public String reverseWords3(String s) {
+        if (s == null || s.length() == 0) {
+            return new String();
+        }
+        int slow = 0;
+        int fast = 0;
+        char[] chars = s.toCharArray();
+        while (fast < chars.length) {
+            while (fast < chars.length && chars[fast] != ' ') {
+                fast++;
+            }
+            reversePart(chars, slow, fast - 1);
+            fast++;
+            slow = fast;
+        }
+        return String.valueOf(chars);
+    }
+
+    public void reversePart(char[] array, int start, int end) {
+        while (start < end) {
+            char temp = array[start];
+            array[start] = array[end];
+            array[end] = temp;
+            start++;
+            end--;
+        }
+    }
+
+    @Test
+    public void testReverseWords3() {
+        String strings = "Let's take LeetCode contest";
+        System.out.println(reverseWords3(strings));
+    }
 
 }
