@@ -4,6 +4,7 @@ import List.KthFromEnd;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Stack;
 
 public class StringTest {
 
@@ -199,4 +200,71 @@ public class StringTest {
         System.out.println(reverseStr(a, 2));
 
     }
+
+    /**
+     * LeetCode.917. 仅仅反转字⺟
+     * 基于栈实现
+     * @param S
+     * @return
+     */
+    public String reverseOnlyLetters(String S) {
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < S.length(); i++) {
+            if (isLetter(S.charAt(i))) {
+                stack.push(S.charAt(i));
+            }
+        }
+        char[] res = S.toCharArray();
+        for (int i = 0; i < S.length(); i++) {
+            if (!isLetter(res[i])) {
+                continue;
+            }
+            Character a = stack.pop();
+            res[i] = a;
+        }
+        return String.valueOf(res);
+    }
+
+    public boolean isLetter(Character character) {
+//        if ((character > 'z' && character < 'a') || (character > 'Z' && character < 'A')) {
+        if ((character >= 'a' && character <= 'z') || (character >= 'A' && character <= 'Z')) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Test
+    public void testReverseOnlyLetters() {
+        String a = "Test1ng-Leet=code-Q!";//"Qedo1ct-eeLg=ntse-T!"
+        System.out.println(reverseOnlyLettersDualPointer(a));
+    }
+
+    /**
+     * LeetCode.917. 仅仅反转字⺟
+     * 基于双指针实现
+     * @param S
+     * @return
+     */
+    public String reverseOnlyLettersDualPointer(String S) {
+        int left = 0;
+        int right = S.length() - 1;
+        char[] array = S.toCharArray();
+        while (left < right) {
+            while (left < S.length() && !isLetter(array[left])) {
+                left++;
+            }
+            while (right > 0 && !isLetter(array[right])) {
+                right--;
+            }
+            char temp = array[left];
+            array[left] = array[right];
+            array[right] = temp;
+            left++;
+            right--;
+        }
+        return String.valueOf(array);
+    }
+
+
 }
