@@ -346,4 +346,74 @@ public class StringTest {
         System.out.println(reverseWords3(strings));
     }
 
+    /**
+     * LeetCode.125. 验证回⽂串
+     * 判断后是否相等
+     * @param s
+     * @return
+     */
+    public boolean isPalindromeReverse(String s) {
+        if (s == null || s.length() == 0) {
+            return true;
+        }
+        StringBuffer origin = new StringBuffer();
+        for (int i = 0; i < s.length(); i++) {
+            if (isCharacterOrDigital(s.charAt(i))) {
+                origin.append(s.charAt(i));
+            }
+        }
+        StringBuffer reverse = new StringBuffer(origin).reverse();
+        if (reverse.toString().equalsIgnoreCase(origin.toString())) {
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
+    public boolean isCharacterOrDigital(Character character) {
+        if ((character >= 'a' && character <= 'z')
+                || (character >= 'A' && character <= 'Z')
+                || (character >= '0' && character <= '9')) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Test
+    public void testIsPalindrome() {
+        String words = "A man, a plan, a canal: Panama";
+        System.out.println(isPalindrome(words));
+
+    }
+
+
+    /**
+     * @param s
+     * @return
+     */
+    public boolean isPalindrome(String s) {
+        if (s == null || s.length() == 0) {
+            return true;
+        }
+        int left = 0;
+        int right = s.length() - 1;
+        char[] array = s.toCharArray();
+        while (left < right) {
+            while (left < s.length() && !isCharacterOrDigital(array[left])) {
+                left++;
+            }
+            while (right >= 0 && !isCharacterOrDigital(array[right])) {
+                right--;
+            }
+            if (!String.valueOf(array[left]).equalsIgnoreCase(String.valueOf(array[right]))) {
+                return false;
+            }else {
+                left++;
+                right--;
+            }
+        }
+        return true;
+    }
 }
