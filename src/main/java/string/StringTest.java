@@ -3,10 +3,7 @@ package string;
 import List.KthFromEnd;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class StringTest {
 
@@ -390,6 +387,8 @@ public class StringTest {
 
 
     /**
+     * LeetCode.125. 验证回⽂串
+     * 双指针
      * @param s
      * @return
      */
@@ -416,4 +415,89 @@ public class StringTest {
         }
         return true;
     }
+
+
+    /**
+     * LeetCode387. 字符串中的第⼀个唯⼀字符
+     * @param s
+     * @return
+     */
+    public int firstUniqChar(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            map.put(chars[i], map.getOrDefault(chars[i], 0) + 1);
+        }
+        for (int i = 0; i < chars.length; i++) {
+            int num = map.get(chars[i]);
+            if (num == 1) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+    @Test
+    public void testFirstUniqChar() {
+        String a = "loveleetcode";
+        System.out.println(firstUniqChar(a));
+    }
+
+    /**
+     * LeetCode58. 最后⼀个单词的⻓度
+     * @param s
+     * @return
+     */
+    public int lengthOfLastWord(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        char[] chars = s.toCharArray();
+        int index = chars.length - 1;
+        while (!isLetter(chars[index])) {
+            index--;
+        }
+        int len = 0;
+        while (isLetter(chars[index])) {
+            index--;
+            len++;
+        }
+        return len;
+    }
+
+    @Test
+    public void testLengthOfLastWord() {
+        String a = " fly me to the moon ";
+        System.out.println(lengthOfLastWord(a));
+    }
+
+    /**
+     * 剑指Offer58、左旋转字符串
+     * @param s
+     * @param n
+     * @return
+     */
+    public String reverseLeftWords(String s, int n) {
+        if (s == null || s.length() == 0) {
+            return new String();
+        }
+        StringBuffer suffix = new StringBuffer();
+        for (int i = 0; i < n && i< s.length(); i++) {
+            suffix.append(s.charAt(i));
+        }
+        StringBuffer prefix = new StringBuffer();
+        for (int i = n; i < s.length(); i++) {
+            prefix.append(s.charAt(i));
+        }
+
+        return prefix.append(suffix).toString();
+    }
+
+    @Test
+    public void testReverseLeftWords() {
+        String a = "abcadfhg";
+        System.out.println(reverseLeftWords(a, 10));
+    }
+
 }
