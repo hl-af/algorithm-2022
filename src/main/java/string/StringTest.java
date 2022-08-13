@@ -500,4 +500,85 @@ public class StringTest {
         System.out.println(reverseLeftWords(a, 10));
     }
 
+    /**
+     * 判定是否互为字符重排
+     * @param s1
+     * @param s2
+     * @return
+     */
+    public boolean checkPermutation(String s1, String s2) {
+        int[] s1Array = new int[26];
+        int[] s2Array = new int[26];
+        for (int i = 0; i < s1.length(); i++) {
+            s1Array[s1.charAt(i) - 'a']++;
+        }
+        for (int i = 0; i < s2.length(); i++) {
+            s2Array[s2.charAt(i) - 'a']++;
+
+        }
+        for (int i = 0; i < 26; i++) {
+            if (s1Array[i] != s2Array[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Test
+    public void testCheckPermutation() {
+        String s1 = "abcadfhg";
+        String s2 = "bcafdagh";
+        System.out.println(checkPermutation(s1, s2));
+    }
+
+    /**
+     * leetcode 443 字符串压缩问题
+     * 待leetcode验证
+     * @param chars
+     * @return
+     */
+    public int compress(char[] chars) {
+        int left = 0;
+        int right = 0;
+        int index = 0;
+        while (right < chars.length) {
+            while (chars[left] == chars[right]) {
+                right++;
+                if (right == (chars.length)) {
+                    break;
+                }
+            }
+            if (right - left > 1) {
+                int num = right - left;
+                chars[index++] = chars[left];
+                int times = 0;
+                do {
+                    chars[index++] = (char) (num % 10 + '0');
+                    num = num / 10;
+                    times++;
+                } while (num > 0);
+                reverse(chars, index - times, index - 1);
+            } else {
+                index++;
+            }
+            left = right;
+        }
+        return index;
+    }
+
+    public void reverse(char[] a, int left, int right) {
+        while (left < right) {
+            char temp = a[left];
+            a[left] = a[right];
+            a[right] = temp;
+            left++;
+            right--;
+        }
+    }
+
+    @Test
+    public void testCompress() {
+        String a = "abbbbbbbbbbbbbb";
+        System.out.println(compress(a.toCharArray()));
+    }
 }
