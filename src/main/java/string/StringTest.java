@@ -5,6 +5,10 @@ import org.junit.Test;
 
 import java.util.*;
 
+/**
+ * 字符串积累技巧：
+ * 1. int类型越界判断：使用 num  > MAX / 10
+ */
 public class StringTest {
 
     /**
