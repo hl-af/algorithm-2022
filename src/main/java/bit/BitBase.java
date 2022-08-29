@@ -162,4 +162,34 @@ public class BitBase {
         System.out.println(convertToBase7(-100));
     }
 
+
+    /**
+     * 给定⼀个⼗进制数M，以及需要转换的进制数N，将⼗进制数M转化为N进制数。M是32位整数，2<=N<=16。
+     * @param M
+     * @param N
+     * @return
+     */
+    public String convert (int M, int N) {
+        char[] conver = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+        StringBuffer stringBuffer = new StringBuffer();
+        Boolean isNagative = false;
+        if (M < 0) {
+            isNagative = true;
+            M = -M;
+        }
+        while (M != 0) {
+            stringBuffer.append(conver[M % N]);
+            M = M / N;
+        }
+        if (isNagative) {
+            stringBuffer.append("-");
+        }
+        return stringBuffer.reverse().toString();
+    }
+
+    @Test
+    public void testConvert() {
+        System.out.println(convert(20, 2));
+    }
+
 }
