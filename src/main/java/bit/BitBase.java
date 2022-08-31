@@ -317,8 +317,37 @@ public class BitBase {
     }
 
 
-//    public String addBinary(String a, String b) {
-//
-//    }
+    /**
+     * 二进制的加法
+     * @param a
+     * @param b
+     * @return
+     */
+    public String addBinary(String a, String b) {
+        StringBuffer res = new StringBuffer();
+        int leftIndex = a.length() - 1;
+        int rightIndex = b.length() - 1;
+        int add = 0;
+        while (leftIndex >= 0 || rightIndex >= 0) {
+            int left = leftIndex >= 0 ? a.charAt(leftIndex) - '0' : 0;
+            int right = rightIndex >= 0 ? b.charAt(rightIndex) - '0' : 0;
+            add = left + right + add;
+            res.append(add % 2 + "");
+            add = add / 2;
+            leftIndex--;
+            rightIndex--;
+        }
+        if (add == 1) {
+            res.append("1");
+        }
+        return res.reverse().toString();
+    }
+
+    @Test
+    public void testAddBinary() {
+        String a = "1101";
+        String b = "11";
+        System.out.println(addBinary(a ,b));
+    }
 
 }
