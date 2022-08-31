@@ -11,7 +11,6 @@ public class BitBase {
     /**
      * LeetCode191 编写⼀个函数，输⼊是⼀个⽆符号整数（以⼆进制串的形式），返回其⼆进制表达式中数字位数'1' 的个数。
      * 使用原始数位移实现
-     *
      * @param n
      * @return
      */
@@ -233,6 +232,74 @@ public class BitBase {
         int[] a = {9, 9};
         int[] res = plusOne(a);
         System.out.println(Arrays.toString(res));
+    }
+
+    /**
+     * 字符串加法
+     * @param num1
+     * @param num2
+     * @return
+     */
+    public String addStringsMe(String num1, String num2) {
+        if (num1 == null || num2 == null) {
+            return new String();
+        }
+        int num1Index = num1.length() - 1;
+        int num2Index = num2.length() - 1;
+        StringBuffer res = new StringBuffer();
+        boolean flag = false;
+        while (num1Index >= 0 && num2Index >= 0) {
+            int left = num1.charAt(num1Index--) - '0';
+            int right = num2.charAt(num2Index--) - '0';
+            int temp = (left + right + (flag ? 1 : 0)) % 10;
+            res = res.append(temp);
+            if (left + right + (flag ? 1 : 0) >= 10) {
+                flag = true;
+            } else {
+                flag = false;
+            }
+        }
+        while (num1Index >= 0) {
+            res = res.append(num1.charAt(num1Index--) + "");
+        }
+        while (num2Index >= 0) {
+            res = res.append(num2.charAt(num2Index--) + "");
+        }
+        return res.reverse().toString();
+    }
+
+    @Test
+    public void testAddStrings() {
+        System.out.println(addStrings("4123", "678"));
+    }
+
+    /**
+     * 十进制字符串加法
+     * 没有进位版本
+     * @param num1
+     * @param num2
+     * @return
+     */
+    public String addStrings(String num1, String num2) {
+        int index1 = num1.length() - 1;
+        int index2 = num2.length() - 1;
+        int add = 0;
+        StringBuffer res = new StringBuffer();
+        while (index1 >= 0 || index2 >= 0 || add != 0) {
+            int left = index1 >= 0 ? num1.charAt(index1) - '0' : 0;
+            int right = index2 >= 0 ? num2.charAt(index2) - '0' : 0;
+            index1--;
+            index2--;
+            add = left + right + add;
+            res.append(add % 10);
+            add = add / 10;
+        }
+        return res.reverse().toString();
+    }
+
+
+    public String addBinary(String a, String b) {
+
     }
 
 }
