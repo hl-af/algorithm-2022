@@ -1,9 +1,7 @@
 package bit;
 
-import com.sun.xml.internal.ws.api.model.wsdl.editable.EditableWSDLService;
 import org.junit.Test;
 
-import java.lang.annotation.Target;
 import java.util.Arrays;
 
 public class BitBase {
@@ -199,7 +197,7 @@ public class BitBase {
      * @param digits
      * @return
      */
-    public static int[] plusOne(int[] digits) {
+    public static int[] plusOneMe(int[] digits) {
         int length = digits.length;
         Boolean isHighPlus = false;
         digits[length - 1] = digits[length - 1] + 1;
@@ -227,9 +225,30 @@ public class BitBase {
         }
     }
 
+    /**
+     * LeetCode66.具体要求是由整数组成的⾮空数组所表示的⾮负整数，在其基础上加⼀。
+     * 这⾥最⾼位数字存放在数组的⾸位， 数组中每个元素只存储单个数字。并且假设除了整数 0 之外，这
+     * 个整数不会以零开头
+     * 答案实现的方法
+     * @param digits
+     * @return
+     */
+    public static int[] plusOne(int[] digits) {
+        for (int i = digits.length - 1; i >= 0; i--) {
+            digits[i]++;
+            digits[i] = digits[i] % 10;
+            if (digits[i] != 0) {
+                return digits;
+            }
+        }
+        int[] res = new int[digits.length + 1];
+        res[0] = 1;
+        return res;
+    }
+
     @Test
     public void testplusOne() {
-        int[] a = {9, 9};
+        int[] a = {9, 8};
         int[] res = plusOne(a);
         System.out.println(Arrays.toString(res));
     }
@@ -298,8 +317,8 @@ public class BitBase {
     }
 
 
-    public String addBinary(String a, String b) {
-
-    }
+//    public String addBinary(String a, String b) {
+//
+//    }
 
 }
