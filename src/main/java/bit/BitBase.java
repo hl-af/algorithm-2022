@@ -350,4 +350,80 @@ public class BitBase {
         System.out.println(addBinary(a ,b));
     }
 
+    /**
+     * LeetCode371 给你两个整数 a 和 b ，不使⽤运算符 + 和 - ，计算并返回两整数之和。
+     * @param a
+     * @param b
+     * @return
+     */
+//    public int getSum(int a, int b) {
+//
+//    }
+
+    /**
+     * LeetCode231. 给你⼀个整数 n，请你判断该整数是否是 2 的幂次⽅。如果是，返回 true ；否则，返回 false 。
+     * 如果存在⼀个整数 x 使得 n == 2^x ，则认为 n 是 2 的幂次⽅。
+     * @param n
+     * @return
+     */
+    boolean isPowerOfTwo(int n) {
+        if (n <= 0) {
+            return false;
+        }
+        while (n != 1) {
+            if (n % 2 != 0) {
+                return false;
+            }
+            n = n / 2;
+        }
+        return true;
+    }
+
+    @Test
+    public void testIsPowerOfTwo() {
+        System.out.println(isPowerOfTwo(3));
+    }
+
+    /**
+     * leetcode326 给定⼀个整数，写⼀个函数来判断它是否是 3 的幂次⽅。如果是，返回 true ；否则，返回 false 。
+     * 整数 n 是 3 的幂次⽅需满⾜：存在整数 x 使得 n == 3^x
+     * @param n
+     * @return
+     */
+    public boolean isPowerOfThree(int n) {
+
+        if (n <= 0) {
+            return false;
+        }
+        while (n % 3 == 0) {
+            n = n / 3;
+        }
+        return n == 1;
+    }
+
+    @Test
+    public void testIsPowerOfThree() {
+        System.out.println(isPowerOfThree(21));
+    }
+
+    /**
+     * LeetCode136 给定⼀个⾮空整数数组，除了某个元素只出现⼀次以外，其余每个元素均出现两次。找出那个只出
+     * 现了⼀次的元素。
+     * 基于异或的交换律：a^b^a = b  a^a = 0
+     * @param nums
+     * @return
+     */
+    int singleNumber(int[] nums) {
+        int res = 0;
+        for (int i = 0; i < nums.length; i++) {
+            res = res ^ nums[i];
+        }
+        return res;
+    }
+
+    @Test
+    public void testSingleNumber() {
+        int[] a = {1, 2, 2, 1, 3};
+        System.out.println(singleNumber(a));
+    }
 }
