@@ -426,4 +426,88 @@ public class BitBase {
         int[] a = {1, 2, 2, 1, 3};
         System.out.println(singleNumber(a));
     }
+
+
+    /**
+     * LeetCode204 给定整数 n ，返回 所有⼩于⾮负整数 n 的质数的数量 。
+     * 使用截断为 n = sqrt(n) 来做
+     * @param n
+     * @return
+     */
+    public int countPrimes(int n) {
+        int count = 0;
+        for (int i = 0; i <= n; i++) {
+            if (isPrime(i)) {
+                System.out.println(i);
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 素数判断：1即⾮素数，也⾮合数；2是唯⼀的同时为偶数和素数的数字。
+     * @param num
+     * @return
+     */
+    public Boolean  isPrime(int num) {
+        if (num <= 1) {
+            return false;
+        }
+        int end = (int)Math.sqrt(num);
+
+        for (int i = 2; i <= end; i++) {
+            if (num % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    @Test
+    public void testCountPrimes() {
+        System.out.println(countPrimesArthas(10));
+    }
+
+    /**
+     * LeetCode204 给定整数 n ，返回 所有⼩于⾮负整数 n 的质数的数量 。
+     * 埃⽒筛 来做
+     * @param n
+     * @return
+     */
+    public int countPrimesArthas(int n) {
+        int[] array = new int[n];
+        int count = 0;
+        Arrays.fill(array, 1);
+        for (int i = 2; i < n; i++) {
+            if (array[i] == 1) {
+                count++;
+                for (int j = i; ; j++) {
+                    int temp = i * j;
+                    if (temp < n) {
+                        array[i * j] = 0;
+                    }else {
+                        break;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 丑数查找
+     * 把只包含质因⼦ 2、3 和 5 的数称作丑数（Ugly Number），求按从⼩到⼤的顺序
+     * 的第 n 个丑数。
+     * @param index
+     * @return
+     */
+//    public int nthUglyNumber(int index) {
+//        int[] res = new int[index];
+//
+//    }
+
+
+
 }
