@@ -9,6 +9,9 @@ import org.junit.Test;
  * 2. 为了避免有空指针：（1）while循环和if的判空条件一致（2）指针常规移动最好使用if-else，不然容易报空指针
  * 3. 什么时候用虚拟头节点：貌似一个指针的时候使用，移动k个节点需要移动到目标前的需要
  * 4. 循环往往使用 == 作为判断条件
+ * 5. 删除头节点： head = head.next;
+ * 6. 删除中间节点： p.next = p.next.next;
+ *
  */
 public class DeleteDuplicateElement {
 
