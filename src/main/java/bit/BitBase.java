@@ -4,6 +4,19 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
+/**
+ * 1.计算1的个数：a & (a - 1)，最后一位的1变为0
+ * 2.进位移动：res = res * 10 + num % 10
+ * 3.int类型是否越界的判断：x > Integer.MAX_VALUE / 10 || (x == Integer.MAX_VALUE / 10 && x > Integer.MAX_VALUE % 10)
+ * 4.M进制转N进制：定义一个N进制的数组，来应对超过9的情况；逐步增加位数的过程先 % 得到数，后 / 作为下一步使用；记得首先判断正负号
+ * 5.字符串拼接记得倒过来
+ * 6.N进制加法计算：定义一个add作为进位标志
+ * 7.是否是某一个数的幂次：使用连续除来算，最后结果是否为1
+ * 8.只出现一次的元素判断：使用异或的性质
+ * 9.素数和丑数的判断：
+ * pre素数判断：使用2到sqrt(n)来判断
+ * 9-1.基本：使用组成元素除，判断最后是不是为1;9-2. 定义一个数组，使用埃氏法则做
+ */
 public class BitBase {
 
     /**
@@ -497,17 +510,77 @@ public class BitBase {
     }
 
     /**
-     * 丑数查找
-     * 把只包含质因⼦ 2、3 和 5 的数称作丑数（Ugly Number），求按从⼩到⼤的顺序
-     * 的第 n 个丑数。
+     * 丑数判断，使用遍历的方法
      * @param index
      * @return
      */
-//    public int nthUglyNumber(int index) {
-//        int[] res = new int[index];
-//
-//    }
+    public int nthUglyNumberFor(int index) {
+        int count = 0;
+        for (int i = 1; i <= index; i++) {
+            if (isUglyNumber(i)) {
+                count++;
+            }
+        }
+        return count;
+    }
 
+    public boolean isUglyNumber(int num) {
+        while (num % 2 == 0) {
+            num = num / 2;
+        }
+        while (num % 3 == 0) {
+            num = num / 3;
+        }
+        while (num % 5 == 0) {
+            num = num / 5;
+        }
+        return num == 1 ? true : false;
+    }
+    /**
+     * 剑指offer:丑数查找
+     * 把只包含质因⼦ 2、3 和 5 的数称作丑数（Ugly Number），求按从⼩到⼤的顺序
+     * 的第 n 个丑数。
+     * 使用arthas找到排序的丑数:还是不太会
+     *  1, 2, 3, 4, 5, 6, 8, 9, 10, 12
+     * @param index
+     * @return
+     */
+    public int nthUglyNumber(int index) {
+        int[] res = new int[index];
+        res[0] = 1;
+        int index3 = 0;
+        int index5 = 0;
+        int index2 = 0;
+        int i = 0;
+        int temp = res[0];
+        while (temp < index) {
+            temp = min(res[index2] * 2, res[index3] * 3, res[index5] * 5);
+            if (temp == res[index2] * 2) {
+                index2 = index2 + 2 - 1;
+                res[i++] = temp;
+            }
+            if (temp == res[index3] * 3) {
+                index3 = index3 + 3 - 1;
+                res[i++] = temp;
+            }
+            if (temp == res[index5] * 5) {
+                index5 = index5 + 5 - 1;
+                res[i++] = temp;
+            }
+        }
+        return i + 1;
+    }
+
+    public int min(int a, int b, int c) {
+        int temp = a >= b ? b:a;
+        return temp >= c ? c : temp;
+    }
+
+    @Test
+    public void testNthUglyNumber() {
+//        System.out.println(nthUglyNumber(12)); // 测试不通过
+        System.out.println(nthUglyNumberFor(12));
+    }
 
 
 }
