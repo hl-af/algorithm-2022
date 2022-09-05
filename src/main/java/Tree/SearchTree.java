@@ -186,6 +186,41 @@ public class SearchTree {
     }
 
 
+    int num = 0;
+    /**
+     * 给定一个搜索二叉树，找到第k小的元素
+     * @param root
+     * @param k
+     * @return
+     */
+    public int findKthNum(TreeNode root, int k) {
+        if (root == null || num > k) {
+            return -1;
+        }
+        int left = -1;
+        if (root.left != null) {
+            left = findKthNum(root.left, k);
+        }
+        if (++num== k) {
+            return root.val;
+        }
+        int right = -1;
+        if (root.right != null) {
+            right = findKthNum(root.right, k);
+        }
+        if (left != -1) {
+            return left;
+        }else {
+            return right;
+        }
+    }
+
+    @Test
+    public void testFindKthNum() {
+        int[] nums = {-10, -3, 0, 5, 9};
+        TreeNode root = sortedArrayToBST(nums);
+        System.out.println(findKthNum(root, 2));
+    }
 
 
 

@@ -214,6 +214,35 @@ public class HotQuestion {
     public void testSqrt() {
         int result = sqrt(8);
         System.out.println(result);
+        System.out.println(sqrt(8, 8/2,1));
     }
+
+    /**
+     * 计算sqrt，精确到小数点后7位
+     * @param n
+     * @param mid
+     * @param accuracy
+     * @return
+     */
+    public double sqrt(int n, double mid, double accuracy) {
+        if (accuracy < 0.0000001) {
+            return mid;
+        }
+        double low = 0;
+        double high = n;
+        while (low < high) {
+            mid = low + ((high - low) / 2);
+            if (mid < n / mid) {
+                low = mid + accuracy;
+            } else if (n / mid < mid) {
+                high = mid - accuracy;
+            } else {
+                return sqrt(n, mid, accuracy * 0.1);
+            }
+        }
+        return sqrt(n, mid, accuracy * 0.1);
+    }
+
+
 }
 
