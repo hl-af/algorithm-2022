@@ -196,7 +196,8 @@ public class Base {
     }
 
     /**
-     *
+     * LeetCode131 分割回⽂串，给你⼀个字符串s，请你将s分割成⼀些⼦串，使每个⼦串都是回⽂串 ，返回s所有可能
+     * 的分割⽅案。
      * @param str
      * @return
      */
@@ -241,5 +242,236 @@ public class Base {
         }
     }
 
+
+    /**
+     * LeetCode93.有效IP地址正好由四个整数（每个整数位于 0 到 255 之间组
+     * 成，且不能含有前导 0），整数之间⽤ '.'
+     * @param s
+     * @return
+     */
+//    public Boolean isValidIP(String s) {
+//
+//
+//    }
+
+    public void dfs(String s, List<String> path, int start, int end) {
+        if (end - start > 2) {
+            return;
+        }
+        if (path.size() == 4) {
+            return;
+        }
+        String num = s.substring(start, end);
+        path.add(num);
+        for (int i = 1; i < 3; i++) {
+            dfs(s, path, start, start + i);
+        }
+
+    }
+
+    /**
+     * LeetCode78，给你⼀个整数数组nums，数组中的元素互不相同。返回该数组所有可能的⼦集（幂集）。解集不能
+     * 包含重复的⼦集。你可以按任意顺序返回解集。
+     * 输⼊：nums = [1,2,3]
+     * 输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        subSetsHelper(nums, 0, new ArrayList<>(), res);
+        return res;
+    }
+
+    public void subSetsHelper(int[] nums, int startIndex, List<Integer> path, List<List<Integer>> res) {
+        res.add(new ArrayList<>(path));
+        if (startIndex == nums.length) {
+            return;
+        }
+        for (int i = startIndex; i < nums.length; i++) {
+            path.add(nums[i]);
+            subSetsHelper(nums, i + 1, path, res);
+            path.remove(path.size() - 1);
+        }
+    }
+
+    @Test
+    public void testsubsets() {
+        int[] array = {1, 2, 3};
+        System.out.println(subsets(array));
+    }
+
+    /**
+     * LeetCode46.给定⼀个没有重复数字的序列，返回其所有可能的全排列
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> permute(int[] nums) {
+        Set<Integer> usedSet = new HashSet<>();
+        for (int i = 0; i < nums.length; i++) {
+            usedSet.add(nums[i]);
+        }
+        List<List<Integer>> res = new ArrayList<>();
+        permuteHelper(nums, usedSet, new ArrayList<>(), res);
+        return res;
+    }
+
+
+    public void permuteHelper(int[] nums,Set<Integer> usedSet, List<Integer> path, List<List<Integer>> res) {
+        if (usedSet.isEmpty()) {
+            res.add(new ArrayList<>(path));
+            return;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (usedSet.contains(nums[i])) {
+                path.add(nums[i]);
+                usedSet.remove(nums[i]);
+                permuteHelper(nums, usedSet, path, res);
+                path.remove(path.size() - 1);
+                usedSet.add(nums[i]);
+            }
+        }
+    }
+
+    @Test
+    public void testPermute() {
+        int[] array = {1, 2, 3};
+        System.out.println(permute(array));
+    }
+
+    /**
+     * LeetCode17.电话号码组合问题，也是热度⾮常⾼的⼀个题⽬，给定⼀个仅包含数字 2-9 的字符串，返回所有它能
+     * 表示的字⺟组合。 给出数字到字⺟的映射如下(与电话按键相同)。注意 1 不对应任何字⺟，9对应四个字⺟。
+     * @param digits
+     * @return
+     */
+    public List<String> letterCombinations(String digits) {
+        String[] numString = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        List<String> res = new ArrayList<>();
+        helper(digits, 0, new StringBuffer(), res, numString);
+        return res;
+    }
+
+    public void helper(String digits, int startIndex, StringBuffer path, List<String> res,String[] numString) {
+
+        if (startIndex == digits.length()) {
+            res.add(new String(path));
+            return;
+        }
+
+//        int num = Integer.valueOf(digits.charAt(startIndex)); //这样的方式竟然打印出来的是ascii值
+        int num = digits.charAt(startIndex) - '0';
+        String str = numString[num];
+        for (int i = 0; i < str.length(); i++) {
+            path.append(str.charAt(i));
+            helper(digits, startIndex + 1, path, res, numString);
+            path.replace(path.length() - 1, path.length(), "");
+        }
+    }
+
+    @Test
+    public void testLetterCombinations() {
+        String digits = "32";
+        System.out.println(letterCombinations(digits));
+    }
+
+    /**
+     * LeetCode22.数字 n 代表⽣成括号的对数，请你设计⼀个函数，⽤于能够⽣成所
+     * 有可能的并且 有效的 括号组合。
+     * @param n
+     * @return
+     */
+    public List<String> generateParenthesis(int n) {
+        int left = n;
+        int right = n;
+        List<String> res = new ArrayList<>();
+        parenthesisHelper(left, right, new StringBuilder(), res);
+        return res;
+    }
+
+    public void parenthesisHelper(int left, int right, StringBuilder path, List<String> res) {
+
+        if (left <= 0 && right <= 0) {
+            res.add(new String(path));
+            return;
+        }
+
+        if (left > 0) {  //可以出左括号
+            path.append("(");
+            left = left - 1; //需要这样写，如果放到参数里left--传递的参数是没有减少的，注意⚠️
+            parenthesisHelper(left, right, path, res);
+            left++;
+            path.deleteCharAt(path.length() - 1);
+        }
+        if (left < right) { //可以出右括号
+            path.append(")");
+            right = right - 1;
+            parenthesisHelper(left, right, path, res);
+            right++;
+            path.deleteCharAt(path.length() - 1);
+        }
+    }
+
+    @Test
+    public void testGenerateParenthesis() {
+        System.out.println(generateParenthesis(3));
+    }
+
+    /**
+     * LeetCode784. 字⺟⼤⼩写全排列：给定⼀个字符串 s ，通过将字符串 s 中的每个字⺟转变⼤⼩写，我们可以获得
+     * ⼀个新的字符串。
+     * @param s
+     * @return
+     */
+    public List<String> letterCasePermutation(String s) {
+        List<String> res = new ArrayList<>();
+        char[] path = s.toCharArray();
+        caseHelper(s, 0, path, res);
+        return res;
+    }
+
+    public void caseHelper(String str, int startIndex, char[] path, List<String> res) {
+        res.add(Arrays.toString(path));
+        for (int i = startIndex; i < str.length(); i++) {
+            if (!isLetter(path[i])) {
+                continue;
+            }
+            path = changeLetter(path, i);
+            caseHelper(str, i + 1, path, res);
+            res.add(Arrays.toString(path));
+
+        }
+    }
+
+    public char[] changeLetter(char[] array,int startIndex) {
+        if (isSmallCase(array[startIndex])) {
+            array[startIndex] -= 32;
+        }else {
+            array[startIndex] += 32;
+        }
+        return array;
+    }
+    public boolean isSmallCase(char c) {
+        if (c >= 'a' && c <= 'z') {
+            return true;
+        }else {
+            return false;
+        }
+    }
+    public boolean isLetter(char c) {
+        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) { // 记得加=号
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Test
+    public void testLetterCasePermutation() {
+        List<String> res = letterCasePermutation("a1b2");
+        System.out.println(res);
+//        char c = 'b' - 32;
+//        System.out.println(c);
+    }
 
 }
