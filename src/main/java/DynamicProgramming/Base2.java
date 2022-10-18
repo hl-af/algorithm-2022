@@ -180,4 +180,31 @@ public class Base2 {
         System.out.println(canJump(A));
     }
 
+    /**
+     * LeetCode91.解码⽅法：⼀条包含字⺟ A-Z 的消息通过以下映射进⾏了 编码,给你⼀个只含数字的⾮空字符串 s ，请计算并返回解码⽅法的总数 。
+     * @param ss
+     * @return
+     */
+    public int numDecodings(String ss) {
+        int[] dp = new int[ss.length()];
+        dp[0] = 1;
+        for (int i = 0; i < ss.length(); i++) {
+            for (int j = 0; j < i; j++) {
+                int num = Integer.valueOf(ss.charAt(i - 1) + ss.charAt(i));
+                if (num < 26 && num >= 10) {
+                    dp[i] = dp[i - 1] + 2;
+                }else {
+                    dp[i] = dp[i - 1] + 1;
+                }
+            }
+        }
+        return dp[ss.length() - 1];
+    }
+
+    @Test
+    public void testNumDecodings() {
+        String num = "226";
+        System.out.println(numDecodings(num));
+    }
+
 }
