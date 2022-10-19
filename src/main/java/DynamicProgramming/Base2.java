@@ -1,5 +1,6 @@
 package DynamicProgramming;
 
+import ListNodeUtils.ListUtils;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class Base2 {
      * LeetCode322.给你⼀个整数数组 coins ，表示不同⾯额的硬币，以及⼀个整数 amount ，表示总⾦额。计算并返
      * 回可以凑成总⾦额所需的最少的硬币个数 。如果没有任何⼀种硬币组合能组成总⾦额，返回 -1 。你可以认为每种
      * 硬币的数量是⽆限的。
+     *
      * @param coins
      * @param amount
      * @return
@@ -23,7 +25,7 @@ public class Base2 {
         for (int currentAmount = 0; currentAmount <= amount; currentAmount++) {
             for (int j = 0; j < coins.length; j++) {
                 if (currentAmount - coins[j] >= 0 &&
-                dp[currentAmount] > dp[currentAmount - coins[j]] + 1) {
+                        dp[currentAmount] > dp[currentAmount - coins[j]] + 1) {
                     dp[currentAmount] = dp[currentAmount - coins[j]] + 1;
                 }
             }
@@ -38,11 +40,12 @@ public class Base2 {
     }
 
     /**
-     *  LeetCode674.给定⼀个未经排序的整数数组，找到最⻓且连续递增的⼦序列，并返回该序列的⻓度。
+     * LeetCode674.给定⼀个未经排序的整数数组，找到最⻓且连续递增的⼦序列，并返回该序列的⻓度。
+     *
      * @param A
      * @return
      */
-    public int findLengthOfLCIS(int[] A){
+    public int findLengthOfLCIS(int[] A) {
         int[] dp = new int[A.length];
         Arrays.fill(dp, 1);
         int result = 0;
@@ -59,15 +62,14 @@ public class Base2 {
 
     @Test
     public void testFindLengthOfLCIS() {
-        int[] A = {1,3,5,4,7,8,9,10,11,12};
+        int[] A = {1, 3, 5, 4, 7, 8, 9, 10, 11, 12};
         System.out.println(findLengthOfLCIS(A));
     }
 
 
-
-
     /**
      * LeetCode300.给你⼀个整数数组 nums ，找到其中最⻓严格递增⼦序列的⻓度。
+     *
      * @param A
      * @return
      */
@@ -97,7 +99,8 @@ public class Base2 {
     /**
      * LeetCode279.给你⼀个整数 n ，返回和为n的完全平⽅数的最少数量。
      * 完全平⽅数 是⼀个整数，其值等于另⼀个整数的平⽅；换句话说，其值等于⼀个整数⾃乘的积。例如，1、4、9 和16 都是完全平⽅数，⽽ 3 和 11 不是。
-      * @param n
+     *
+     * @param n
      * @return
      */
     public int numSquares(int n) {
@@ -105,13 +108,13 @@ public class Base2 {
         int[] dp = new int[n + 1]; //dp[] 是最少数量，n是目标数
         Arrays.fill(dp, Integer.MAX_VALUE);
         dp[0] = 0;
-        for (int i = 1; i <= n ; i++) { //目标数
+        for (int i = 1; i <= n; i++) { //目标数
             if (isSquarNum(i)) {
                 squarNum.add(i);
                 dp[i] = 1;
             }
             for (int j = 0; j < squarNum.size(); j++) {
-                if ( i - squarNum.get(j) >= 0 && dp[i] > dp[i - squarNum.get(j)] + 1){
+                if (i - squarNum.get(j) >= 0 && dp[i] > dp[i - squarNum.get(j)] + 1) {
                     dp[i] = dp[i - squarNum.get(j)] + 1;
                 }
             }
@@ -122,6 +125,7 @@ public class Base2 {
     /**
      * LeetCode279.给你⼀个整数 n ，返回和为n的完全平⽅数的最少数量。
      * 完全平⽅数 是⼀个整数，其值等于另⼀个整数的平⽅；换句话说，其值等于⼀个整数⾃乘的积。例如，1、4、9 和16 都是完全平⽅数，⽽ 3 和 11 不是。
+     *
      * @param n
      * @return
      */
@@ -144,7 +148,7 @@ public class Base2 {
         int b = a.intValue();
         if (b * b != n) {
             return false;
-        }else {
+        } else {
             return true;
         }
     }
@@ -158,6 +162,7 @@ public class Base2 {
     /**
      * LeetCode55.跳跃游戏，给定⼀个⾮负整数数组 nums ，你最初位于数组的 第⼀个下标 。数组中的每个元素代表
      * 你在该位part置可以跳跃的最⼤⻓度。判断你是否能够到达最后⼀个下标
+     *
      * @param A
      * @return
      */
@@ -183,6 +188,7 @@ public class Base2 {
     /**
      * LeetCode91.解码⽅法：⼀条包含字⺟ A-Z 的消息通过以下映射进⾏了 编码,给你⼀个只含数字的⾮空字符串 s ，请计算并返回解码⽅法的总数 。
      * 待验证
+     *
      * @param ss
      * @return
      */
@@ -194,7 +200,7 @@ public class Base2 {
                 int num = Integer.valueOf(ss.charAt(i - 1) + ss.charAt(i));
                 if (num <= 26 && num >= 10) {
                     dp[i] = dp[i - 1] + 2;
-                }else {
+                } else {
                     dp[i] = dp[i - 1] + 1;
                 }
             }
@@ -208,4 +214,68 @@ public class Base2 {
         System.out.println(numDecodings(num));
     }
 
+    /**
+     * 路径数，有阻挡物版本
+     *
+     * @param obstacleGrid
+     * @return
+     */
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int[][] dp = new int[obstacleGrid.length][obstacleGrid[0].length];
+        dp[0][0] = 1;
+        for (int i = 0; i < dp.length; i++) {
+            for (int j = 0; j < dp[i].length; j++) {
+                if (obstacleGrid[i][j] == 1) {
+                    dp[i][j] = 0;
+                    continue;
+                }
+                if (i - 1 >= 0 && obstacleGrid[i - 1][j] == 0) {
+                    dp[i][j] += dp[i - 1][j];
+                }
+                if (j - 1 >= 0 && obstacleGrid[i][j - 1] == 0) {
+                    dp[i][j] += dp[i][j - 1];
+                }
+            }
+        }
+        return dp[obstacleGrid.length - 1][obstacleGrid[0].length - 1];
+    }
+
+    @Test
+    public void testUniquePathsWithObstacles() {
+        int[][] obstacleGrid = new int[3][3];
+        obstacleGrid[1][1] = 1;
+        System.out.println(uniquePathsWithObstacles(obstacleGrid));
+    }
+
+    /**
+     * 在LeetCode中对应118和119，打印杨辉三角形
+     * @param rowIndex 要打印的行数
+     * 使用两个数组互相切换来做
+     * @return
+     */
+    public List<Integer> getRow(int rowIndex) {
+
+        List<Integer> pre = new ArrayList<>();
+        for (int i = 0; i <= rowIndex; i++) {
+            List<Integer> cur = new ArrayList<>();
+            for (int j = 0; j <= (i + 1); j++) {
+                if (j == 0 || j == (i + 1)) {
+                    cur.add(1);
+                }else {
+                    cur.add(pre.get(j - 1) + pre.get(j));
+                }
+            }
+            pre = cur;
+        }
+        return pre;
+    }
+
+    @Test
+    public void testYanghui() {
+        List<Integer> list = getRow(4);
+        for (int i = 0; i < list.size(); i++) {
+            System.out.print(list.get(i) + " ");
+        }
+        System.out.println();
+    }
 }
