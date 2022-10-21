@@ -2,15 +2,11 @@ package Search;
 
 import org.junit.Test;
 
-import javax.xml.bind.annotation.XmlID;
-
 public class HotQuestion {
 
     /**
      * 元素存在重复的二分查找
      * @param array
-     * @param low
-     * @param high
      * @return
      */
     public int searchWithSameNum(int[] array, int target) {
